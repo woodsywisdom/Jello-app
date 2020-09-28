@@ -10,5 +10,8 @@
     <form method="post" action="{{ url_for('.logout') }}">
         <button>Log out</button>
     </form>
+    {% if new_user %}
+        <p>{{new_user}}</p>
+    {% endif %}
 </body>
 </html>
