@@ -5,14 +5,15 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
-    "@testing-library/jest-dom": "^4.2.4",    "http-proxy-middleware": "^1.0.5",
+    "@testing-library/jest-dom": "^4.2.4",
+    "http-proxy-middleware": "^1.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "react-app-wired start",
+    "start": "react-app-rewired start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -33,7 +34,7 @@
     ]
   },
   "proxy": "http://localhost:5000",
- "devDependencies": {
+  "devDependencies": {
     "babel-plugin-transform-imports": "^2.0.0",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.1.6"
