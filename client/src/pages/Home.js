@@ -1,41 +1,31 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { AppBar, Toolbar, Link, Button, Box } from '@material-ui/core';
+import { Box, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import LoginNavbar from '../components/LoginNavbar';
 
 const useStyles = makeStyles({
-    navbar: {
-        backgroundColor: '#0079bf',
-    },
-    login: {
+    blueBox: {
         color: 'white',
+        backgroundColor: "#0079bf",
+        height: '1021px',
     },
-    topRight: {
-        display: "flex",
-        width: "auto",
-        justifyContent: "flex-end",
-    }
-})
+});
 
 function Home() {
     const classes = useStyles();
     return (
         <>
-            <AppBar className={classes.navbar} position="sticky">
-                <Toolbar>
-                    <NavLink className="logo-link" to="/">
-                        Trello
-                    </NavLink>
-                    <Box className={classes.topRight}>
-                        <Button className={classes.login} variant="text">
-                            <Link href="/login" className={classes.login}>Log in</Link>
-                        </Button>
-                        <Button variant="contained">
-                            <Link href="/signup">Sign up</Link>
-                        </Button>
-                    </Box>
-                </Toolbar>
-            </AppBar>
+            <LoginNavbar />
+            <Box className={classes.blueBox}>
+                <Container >
+                    <Typography variant='h1'>
+                        Trello helps teams work more collaboratively and get more done.
+                    </Typography>
+                    <Typography variant='h2'>
+                        Trello’s boards, lists, and cards enable teams to organize and prioritize projects in a fun, flexible, and rewarding way.
+                    </Typography>
+                </Container>
+            </Box>
         </>
     )
 
