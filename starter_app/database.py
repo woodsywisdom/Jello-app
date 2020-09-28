@@ -1,4 +1,4 @@
-from dotenv import load_dotenv
+from dotenv import load_dotenv # noqa
 load_dotenv()
 
 from app import app, db

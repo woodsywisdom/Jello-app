@@ -1,5 +1,5 @@
-import os
-from flask import Flask, render_template, request, session
+import os # noqa
+from flask import Flask, render_template, request, session # noqa
 from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_migrate import Migrate
