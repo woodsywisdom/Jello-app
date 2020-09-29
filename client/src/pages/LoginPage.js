@@ -3,13 +3,38 @@ import {useState} from 'react'
 import {login} from '../store/auth'
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, NavLink } from 'react-router-dom';
-import {makeStyles} from '@material-ui/core/styles'
+import {fade,ThemeProvider,withStyles,makeStyles,createMuiTheme} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
+import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button'
 import '../styles/LoginForm.css'
 
-const useStyles = makeStyles({
+const useStylesLoginTextField = makeStyles((theme) => ({
+    root: {
+      border: '2px solid #e2e2e1',
+      overflow: 'hidden',
+      paddingLeft: "10px",
+      marginTop: "14px",
+      borderRadius: 4,
+      backgroundColor: '#fcfcfb',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      transition: "background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s",
+      '&$focused': {
+        border: '2px solid rgb(94, 158, 214)',
+        backgroundColor: '#fff',
+        // boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 1px`,
+      },
+    },
+    focused: {},
+  }));
+
+  function LoginTextField(props) {
+    const classes = useStylesLoginTextField();
+    return <TextField InputProps={{ classes, disableUnderline: true }} {...props} />;
+  }
+
+const useStyles = makeStyles((theme)=> ({
     container: {
         display: "flex",
         flexDirection: "column",
@@ -20,11 +45,17 @@ const useStyles = makeStyles({
         boxShadow: "rgba(0,0,0,0.1) 0 0 10px"
     },
     TextField: {
-        margin: "10px"
+        margin: "10px",
+        backgroundColor: "#EDEFF0",
+        '&:hover': {
+            backgroundColor: '#fff',
+          },
+    },
+    margin: {
+        margin: theme.spacing(1),
     },
     Button: {
-        justifySelf: "left",
-        margin: "10px",
+        marginTop: "10px",
         backgroundColor: "#5AAC44",
         color: "white",
         '&:hover': {
@@ -40,7 +71,7 @@ const useStyles = makeStyles({
         fontSize: "13px",
         margin: "5px"
     }
-})
+}))
 
 function LoginPage() {
     const classes = useStyles()
@@ -70,12 +101,13 @@ function LoginPage() {
                     <h1 className="login-and-signup-header">Log in to Jello</h1>
                     <form className='login-form' method="PUT" action="/api/session" onSubmit={handleSubmit}>
                         <div id='login-form-fields' style={{width:"100%", display:"flex", flexDirection: "column"}}>
-                        <TextField classes={{ root: classes.TextField }} id="outlined" label="username" type="text" name="username" variant="outlined" value={username} placeholder="Enter username or email" onChange={handleUsernameInput} />
-                        <TextField classes={{ root: classes.TextField }} id="outlined" type="password" label="password" name="password" value={password} placeholder="password..." variant="outlined" onChange={handlePasswordInput} />
+                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="text" label="username" size="small" name="password" value={username} variant="filled" onChange={handleUsernameInput} />
+                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="password" label="password" size="small" name="password" value={password} variant="filled" onChange={handlePasswordInput} />
                         </div>
-                        <Button variant="outlined" classes={{ root: classes.Button }} type="submit">Log in</Button>
+                        <Button size="small" classes={{ root: classes.Button }} type="submit">Log in</Button>
                     </form>
-                    <NavLink id='signup-navlink' style={{textDecoration:"none", color:"grey"}} to="/signup"><p className="is-white" id="signUpText">Don't have an account?  <Button classes={{ root: classes.signUpButton }} size="medium" variant="outlined">Sign Up</Button></p></NavLink>
+                    <Divider style={{width: "100%", margin: "10px"}}/>
+                    <NavLink id='signup-navlink' to="/signup"><p className="is-white" id="signUpText">Don't have an account?  Sign Up</p></NavLink>
                 </Container>
             </div>
         </>
