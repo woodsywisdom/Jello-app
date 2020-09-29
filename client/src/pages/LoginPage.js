@@ -15,6 +15,8 @@ const useStylesLoginTextField = makeStyles((theme) => ({
       border: '2px solid #e2e2e1',
       overflow: 'hidden',
       paddingLeft: "10px",
+      paddingTop: "4px",
+      paddingBottom: "4px",
       marginTop: "14px",
       borderRadius: 4,
       backgroundColor: '#fcfcfb',
@@ -101,8 +103,8 @@ function LoginPage() {
                     <h1 className="login-and-signup-header">Log in to Jello</h1>
                     <form className='login-form' method="PUT" action="/api/session" onSubmit={handleSubmit}>
                         <div id='login-form-fields' style={{width:"100%", display:"flex", flexDirection: "column"}}>
-                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="text" label="username" size="small" name="password" value={username} variant="filled" onChange={handleUsernameInput} />
-                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="password" label="password" size="small" name="password" value={password} variant="filled" onChange={handlePasswordInput} />
+                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="text" placeholder="username" size="medium" name="password" value={username} onChange={handleUsernameInput} />
+                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="password" placeholder="password" size="medium" name="password" value={password} onChange={handlePasswordInput} />
                         </div>
                         <Button size="small" classes={{ root: classes.Button }} type="submit">Log in</Button>
                     </form>
