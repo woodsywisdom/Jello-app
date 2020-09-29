@@ -15,8 +15,10 @@ const useStylesSignUpTextField = makeStyles((theme) => ({
     border: '2px solid #e2e2e1',
     overflow: 'hidden',
     paddingLeft: "10px",
+    paddingTop: "4px",
+    paddingBottom: "4px",
+    marginTop: "14px",
     borderRadius: 4,
-    marginTop: "7px",
     backgroundColor: '#fcfcfb',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     transition: "background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s",
@@ -103,10 +105,10 @@ function SignupPage() {
       <Container fixed maxWidth="sm" classes={{root: classes.container}}>
         <h1 className="login-and-signup-header">Sign up for your account</h1>
         <form className='signup-form' method="POST" action="/api/session" onSubmit={handleSubmit}>
-          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="text" variant="filled" size="small" label="username" name="username" value={username} onChange={handleUsernameInput} />
-          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="text" variant="filled" size="small" label="email" name="email" value={email} onChange={handleEmailInput} />
-          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="password" variant="filled" size="small" label="password" name="password" value={password} onChange={handlePasswordInput} />
-          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="password" variant="filled" size="small" label="confirm password" name="confirmPassword" value={confirmPassword} onChange={handleConfirmPasswordInput} />
+          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="text" size="medium" placeholder="username" name="username" value={username} onChange={handleUsernameInput} />
+          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="text" size="medium" placeholder="email" name="email" value={email} onChange={handleEmailInput} />
+          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="password" size="medium" placeholder="password" name="password" value={password} onChange={handlePasswordInput} />
+          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="password" size="medium" placeholder="confirm password" name="confirmPassword" value={confirmPassword} onChange={handleConfirmPasswordInput} />
           <Button size="small" classes={{ root: classes.Button }} type="submit">Sign Up and Log In</Button>
         </form>
         <Divider style={{width: "100%", margin: "10px"}}/>
