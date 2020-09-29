@@ -17,7 +17,8 @@ def login():
         login_user(user)
         return {"user" : format_user}
     else:
-        return {"errors":"Incorrect password or username"}
+        error = {"1":"incorrect password or username"}
+        return {"errors":error}
 
 
 @session.route('/logout', methods=["POST"])

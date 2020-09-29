@@ -3,6 +3,8 @@ import Cookies from 'js-cookie'
 const SET_USER = 'auth/SET_USER';
 const REMOVE_USER = 'auth/REMOVE_USER';
 const SIGNUP = 'auth/SIGNUP';
+const REGISTER_ERRORS = 'auth/REGISTER_ERRORS'
+const CLEAR_ERRORS = 'auth/CLEAR_ERRORS'
 
 export const setUser = (user) => {
     return {
@@ -24,7 +26,7 @@ export const newUser = (user) => ({
 
 export const login = (username, password) => async dispatch => {
         if (!username || !password) {
-            return;
+            return
         }
         const csrfToken = Cookies.get("XSRF-TOKEN");
         const res = await fetch('/api/session/', {
@@ -41,6 +43,7 @@ export const login = (username, password) => async dispatch => {
             res.data = data
         } else {
             res.errors = data["errors"]
+            dispatch(registerErrors(data["errors"]))
         }
         return res;
 };
@@ -65,9 +68,23 @@ export const signup = (username, email, password) => {
             res.data = data;
         } else {
             res.errors = data["errors"]
+            dispatch(registerErrors(data["errors"]))
         }
         return res;
     };
+}
+
+export const registerErrors = (errors) => {
+    return ({
+        type: REGISTER_ERRORS,
+        errors
+    })
+}
+
+export const clearErrors = () => {
+    return ({
+        type: CLEAR_ERRORS,
+    })
 }
 
 export const logout = () => async dispatch => {
@@ -86,6 +103,8 @@ export const logout = () => async dispatch => {
 }
 
 export default function authReducer(state = {}, action) {
+    const newState = Object.assign({},state)
+    const currentErrors = Object.assign({},state.errors)
     switch (action.type) {
         case SET_USER:
             console.log(action.user)
@@ -93,8 +112,20 @@ export default function authReducer(state = {}, action) {
         case SIGNUP:
             console.log(action.user)
             return action.user
+        case REGISTER_ERRORS:
+            console.log(action.errors)
+            newState.errors = currentErrors
+            const errorIds = Object.keys(action.errors)
+            errorIds.forEach(errorId =>{
+                newState.errors[errorId] = action.errors[errorId]
+            })
+            console.log(newState)
+            return newState;
         case REMOVE_USER:
             return {};
+        case CLEAR_ERRORS:
+            newState.errors = {}
+            return newState
         default:
             return state;
 
