@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 const SET_USER = 'auth/SET_USER';
 const REMOVE_USER = 'auth/REMOVE_USER';
 const SIGNUP = 'auth/SIGNUP';
@@ -20,23 +22,45 @@ export const newUser = (user) => ({
     user
 })
 
-export const login = (username, password) => {
-    return async dispatch => {
-        const res = await fetch('/api/session', {
+export const login = (username, password) => async dispatch => {
+        const csrfToken = Cookies.get("XSRF-TOKEN");
+        const res = await fetch('/api/session/', {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
             },
             body: JSON.stringify({ username, password })
         });
-        res.data = await res.json();
+        const data = await res.json();
         if (res.ok) {
-            dispatch(setUser(res.data.user));
+            dispatch(setUser(data));
+            res.data = data
         }
+        return res;
+};
 
+export const signup = (username, email, password) => {
+    return async (dispatch) => {
+        const csrfToken = Cookies.get("XSRF-TOKEN");
+        const res = await fetch('/api/session/', {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            console.log(data)
+            dispatch(newUser(data));
+            res.data = data;
+        }
         return res;
     };
-};
+}
 
 export const logout = () => async dispatch => {
     const res = await fetch('/api/session', {
@@ -53,29 +77,14 @@ export const logout = () => async dispatch => {
     return res;
 }
 
-export const signup = (username, email, password) => {
-    return async (dispatch) => {
-        const res = await fetch('/api/users', {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username, email, password })
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            dispatch(newUser(data));
-            res.data = data;
-        }
-        return res;
-    };
-}
-
 export default function authReducer(state = {}, action) {
     switch (action.type) {
-        case SET_USER || SIGNUP:
+        case SET_USER:
+            console.log(action.user)
             return action.user;
+        case SIGNUP:
+            console.log(action.user)
+            return action.user
         case REMOVE_USER:
             return {};
         default:
