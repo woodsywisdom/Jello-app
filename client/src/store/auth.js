@@ -85,7 +85,7 @@ export const logout = () => async dispatch => {
     return res;
 }
 
-export default function authReducer(state = {}, action) {
+export default function authReducer(state = { user: { id: null } }, action) {
     switch (action.type) {
         case SET_USER:
             console.log(action.user)

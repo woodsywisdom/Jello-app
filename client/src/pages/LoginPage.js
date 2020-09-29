@@ -117,26 +117,26 @@ function LoginPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+
         setUserToLogin({username,password})
     }
 
     const handleUsernameInput = (e) => {
         setUsername(e.target.value)
     }
-    
+
     const handlePasswordInput = (e) => {
         setPassword(e.target.value)
     }
 
-    if (currentUser) {
-        return <Redirect to="/"/>
-    }
+    // if (currentUser) {
+    //     return <Redirect to="/"/>
+    // }
 
     return (
         <>
             <div id="main-content-login">
-                <Container fixed maxWidth="sm" 
+                <Container fixed maxWidth="sm"
                 classes={{root: classes.container}}>
                     <h1 className="login-and-signup-header">Welcome to Jello</h1>
                     <div style={{display: "flex", flexDirection: "column"}}>
