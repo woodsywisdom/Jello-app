@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useState} from 'react'
 import {login} from '../store/auth'
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button'
 import '../styles/LoginForm.css'
+import Cookies from 'js-cookie'
 
 const useStylesLoginTextField = makeStyles((theme) => ({
     root: {
@@ -89,14 +90,35 @@ const ColorButton = withStyles((theme) => ({
 
 function LoginPage() {
     const classes = useStyles()
-    const dispatch = useDispatch()
 
+    const dispatch = useDispatch()
+    const currentUser = useSelector(state => state.auth.user)
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
+    const [userToLogin,setUserToLogin] = useState({})
+    const [errors,setErrors] = useState("")
+
+
+    useEffect(()=>{
+        const validateUser= async ()=>{
+            const username = userToLogin.username
+            const password = userToLogin.password
+            if (username && password) {
+                const data = await dispatch(login(username,password))
+                if (data){
+                    setErrors(data.errors)
+                }
+            }
+        }
+        if (userToLogin !== {}){
+            validateUser()
+        }
+    },[userToLogin])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(login(username,password))
+        
+        setUserToLogin({username,password})
     }
 
     const handleUsernameInput = (e) => {
@@ -105,6 +127,10 @@ function LoginPage() {
     
     const handlePasswordInput = (e) => {
         setPassword(e.target.value)
+    }
+
+    if (currentUser) {
+        return <Redirect to="/"/>
     }
 
     return (
@@ -117,6 +143,9 @@ function LoginPage() {
                         <ColorButton size="small">Login As a Demo User</ColorButton>
                     </div>
                     <Divider style={{width: "100%", margin: "10px"}}/>
+                    <div style={{color:"red"}}>
+                        {errors}
+                    </div>
                     <form className='login-form' method="PUT" action="/api/session" onSubmit={handleSubmit}>
                         <div id='login-form-fields' style={{width:"100%", display:"flex", flexDirection: "column"}}>
                             <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="text" placeholder="username" size="medium" name="password" value={username} onChange={handleUsernameInput} />

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useState} from 'react'
 import {signup} from '../store/auth'
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, NavLink } from 'react-router-dom';
 import {fade,ThemeProvider,withStyles,makeStyles,createMuiTheme} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider';
@@ -77,11 +79,35 @@ function SignupPage() {
   const [password,setPassword] = useState("")
   const [confirmPassword,setConfirmPassword] = useState("")
   const [email,setEmail] = useState("")
+  const [userToCreate,setUserToCreate] = useState({})
+  const [errors,setErrors] = useState([])
 
-  const handleSubmit = (e) => {
+  useEffect(()=>{
+    const validateUser= async ()=>{
+        const username = userToCreate.username
+        const email = userToCreate.email
+        const password = userToCreate.password
+        const data = await dispatch(signup(username,email,password))
+        if (data){
+            setErrors(Object.values(data.errors))
+            console.log(data.errors)
+        }
+    }
+    if (userToCreate !== {}){
+        validateUser()
+    }
+  },[userToCreate])
+
+const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(signup(username, email, password))
-  }
+    if (password === confirmPassword){
+      setUserToCreate({username,email,password})
+    } else {
+      const passwordError = "the passwords do not match"
+      if (!errors.includes(passwordError))
+        setErrors([...errors, passwordError ])
+    }
+}
   
   const handleUsernameInput = (e) => {
       setUsername(e.target.value)
@@ -104,11 +130,19 @@ function SignupPage() {
       <div id="main-content-sign-up">
       <Container fixed maxWidth="sm" classes={{root: classes.container}}>
         <h1 className="login-and-signup-header">Sign up for your account</h1>
+        <Divider style={{width: "100%", margin: "10px"}}/>
+        <div style={{color:"red", display: "flex", flexDirection:"column"}}>
+          {errors.map((err,i)=>{
+            return(
+              <p>{errors[i]}</p>
+            )
+          })}
+        </div>
         <form className='signup-form' method="POST" action="/api/session" onSubmit={handleSubmit}>
           <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="text" size="medium" placeholder="username" name="username" value={username} onChange={handleUsernameInput} />
           <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="text" size="medium" placeholder="email" name="email" value={email} onChange={handleEmailInput} />
           <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="password" size="medium" placeholder="password" name="password" value={password} onChange={handlePasswordInput} />
-          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="password" size="medium" placeholder="confirm password" name="confirmPassword" value={confirmPassword} onChange={handleConfirmPasswordInput} />
+          <SignUpTextField InputLabelProps={{style: {color: "grey"}}} style={{color:"red"}} type="password" size="medium" placeholder="confirm password" name="confirmPassword" value={confirmPassword} onChange={handleConfirmPasswordInput} />
           <Button size="small" classes={{ root: classes.Button }} type="submit">Sign Up and Log In</Button>
         </form>
         <Divider style={{width: "100%", margin: "10px"}}/>
