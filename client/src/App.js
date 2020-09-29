@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Person from './pages/Person'
+import Profile from './pages/Profile'
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import { CssBaseline } from '@material-ui/core';
@@ -16,7 +16,7 @@ function App() {
                 <Route exact path='/' component={Home} />
                 <Route exact path='/signup' component={SignupPage} />
                 <Route exact path='/login' component={LoginPage} />
-                <Route exact path='/person' component={Person} />
+                <Route exact path='/profile' component={Profile} />
             </Switch>
         </BrowserRouter>
     </>

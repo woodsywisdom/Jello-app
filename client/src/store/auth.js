@@ -23,6 +23,9 @@ export const newUser = (user) => ({
 })
 
 export const login = (username, password) => async dispatch => {
+        if (!username || !password) {
+            return;
+        }
         const csrfToken = Cookies.get("XSRF-TOKEN");
         debugger
         const res = await fetch('/api/session/', {
@@ -34,15 +37,20 @@ export const login = (username, password) => async dispatch => {
             body: JSON.stringify({ username, password })
         });
         const data = await res.json();
-        if (res.ok) {
+        if (res.ok && !data["errors"]) {
             dispatch(setUser(data));
             res.data = data
+        } else {
+            res.errors = data["errors"]
         }
         return res;
 };
 
 export const signup = (username, email, password) => {
     return async (dispatch) => {
+        if (!username || !password || !email) {
+            return;
+        }
         const csrfToken = Cookies.get("XSRF-TOKEN");
         const res = await fetch('/api/session/', {
             method: "post",
@@ -52,12 +60,12 @@ export const signup = (username, email, password) => {
             },
             body: JSON.stringify({ username, email, password })
         });
-
-        if (res.ok) {
-            const data = await res.json();
-            console.log(data)
+        const data = await res.json();
+        if (res.ok && !data["errors"]) {
             dispatch(newUser(data));
             res.data = data;
+        } else {
+            res.errors = data["errors"]
         }
         return res;
     };
