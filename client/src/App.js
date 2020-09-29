@@ -1,29 +1,25 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
-
-import UserList from './components/UsersList';
-
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Profile from './pages/Profile'
+import SignupPage from './pages/SignupPage';
+import LoginPage from './pages/LoginPage';
+import { CssBaseline } from '@material-ui/core';
 
 function App() {
 
   return (
-    <BrowserRouter>
-        <nav>
-            <ul>
-                <li><NavLink to="/" activeclass="active">Home</NavLink></li>
-                <li><NavLink to="/users" activeclass="active">Users</NavLink></li>
-            </ul>
-        </nav>
-        <Switch>
-            <Route path="/users">
-                <UserList />
-            </Route>
-
-            <Route path="/">
-                <h1>My Home Page</h1>
-            </Route>
-        </Switch>
-    </BrowserRouter>
+    <>
+        <CssBaseline/>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path='/' component={Home} />
+                <Route exact path='/signup' component={SignupPage} />
+                <Route exact path='/login' component={LoginPage} />
+                <Route exact path='/profile' component={Profile} />
+            </Switch>
+        </BrowserRouter>
+    </>
   );
 }
 
