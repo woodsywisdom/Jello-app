@@ -15,7 +15,6 @@ function Home() {
     const classes = useStyles();
     return (
         <>
-            <LoginNavbar />
             <Box className={classes.blueBox}>
                 <Container >
                     <Typography variant='h1'>
