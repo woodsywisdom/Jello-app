@@ -33,6 +33,11 @@ const useStyles = makeStyles(( theme ) => ({
 
   ul: {
     listStyle: 'none',
+    marginRight: "30px",
+  },
+
+  buttons: {
+    fontSize: ".9em",
   },
 
   Createboard: {
@@ -82,12 +87,12 @@ const Boards = () => {
         <Grid item xs={2}/>
         <Grid container item xs={2} className={classes.sidebar}>
           <ul className={classes.ul}>
-            <li>
-              <Button href='#' color='primary' startIcon={<DashboardIcon />}>Boards</Button>
-              <Button href='#' color='primary' startIcon={<DeveloperBoardIcon />}>Templates</Button>
-              <Button href='#' color='primary' startIcon={<ShowChartIcon />}>Home</Button>
+            <li className={classes.li}>
+              <Button href='#' className={classes.buttons} color='primary' startIcon={<DashboardIcon />}>Boards</Button>
+              <Button href='#' className={classes.buttons} color='primary' startIcon={<DeveloperBoardIcon />}>Templates</Button>
+              <Button href='#' className={classes.buttons} color='primary' startIcon={<ShowChartIcon />}>Home</Button>
               <p>TEAMS</p>
-              <Button href='#' color='primary' startIcon={<AddIcon />}>Create a team</Button>
+              <Button href='#' className={classes.buttons} color='primary' startIcon={<AddIcon />}>Create a team</Button>
             </li>
           </ul>
         </Grid>
