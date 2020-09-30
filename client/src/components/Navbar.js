@@ -10,11 +10,15 @@ const useStyles = makeStyles({
   toolbar: {
     display: "flex",
     justifyContent: "space-between",
+    color: "white",
+  },
+  appBar: {
+    backgroundColor: "#0079bf",
   },
   left: {
     display: 'flex',
   }
-})
+});
 
 
 const Navbar = () => {
@@ -35,15 +39,16 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
           <Box className={classes.left}>
-            <IconButton onClick={appsClick}><AppsIcon/></IconButton>
-            <IconButton onClick={homeClick}><HomeIcon/></IconButton>
-            <IconButton onClick={boardsClick}><TableChartOutlinedIcon/>Boards</IconButton>
-              <InputBase className={classes.searchInput} >
-                <InputAdornment position="end" ><SearchIcon /></InputAdornment>
-              </InputBase>
+            <IconButton variant="contained" color="primary" onClick={appsClick}><AppsIcon/></IconButton>
+            <IconButton variant="contained" color="primary" onClick={homeClick}><HomeIcon/></IconButton>
+            <IconButton variant="contained" color="primary" onClick={boardsClick}><TableChartOutlinedIcon/>Boards</IconButton>
+              <InputBase
+                className={classes.searchInput}
+                endAdornment={<InputAdornment position="end"><SearchIcon/></InputAdornment>}
+              />
           </Box>
 
           <Box>

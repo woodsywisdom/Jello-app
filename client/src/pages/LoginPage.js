@@ -129,10 +129,6 @@ function LoginPage() {
         setPassword(e.target.value)
     }
 
-    // if (currentUser) {
-    //     return <Redirect to="/"/>
-    // }
-
     return (
         <>
             <div id="main-content-login">
