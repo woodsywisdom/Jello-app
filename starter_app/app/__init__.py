@@ -9,6 +9,7 @@ from flask_login import LoginManager, current_user
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.session import session
+from .api.boards import boards
 
 from .config import Config
 
@@ -17,6 +18,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(session, url_prefix='/api/session')
+app.register_blueprint(boards, url_prefix='/api/boards')
 db.init_app(app)
 Migrate(app,db)
 

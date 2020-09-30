@@ -1,9 +1,19 @@
 import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import auth from './auth';
+import boards from './boards';
+import lists from './lists';
+import cards from './cards';
+
+const entities = combineReducers({
+  boards,
+  lists,
+  cards,
+});
 
 const rootReducer = combineReducers({
-  auth,
+  auth, 
+  entities
 });
 
 let storeEnhancer;

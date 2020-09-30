@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 import LoginNavbar from './components/LoginNavbar';
 import Boards from './pages/Boards';
 import { AuthRoute, ProtectedRoute } from './components/utils/Routes';
+import {loadUserBoards} from './store/boards'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -21,6 +22,7 @@ function App() {
         if (res.ok) {
           res.data = await res.json(); // current user info
           dispatch(setUser(res.data.user))
+          dispatch(loadUserBoards(res.data.user.id))
           console.log(res.data.user)
         }
       }

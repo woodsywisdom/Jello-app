@@ -22,8 +22,8 @@ class Board(db.Model):
       "title": self.title,
       "description": self.description,
       "user_id": self.user_id,
-      "user": self.user,
-      "lists": self.lists
+      "user": self.user.id,
+      "lists": [list.id for list in self.lists]
     }
 
   
@@ -44,8 +44,8 @@ class List(db.Model):
       "title": self.title,
       "description": self.description,
       "board_id": self.board_id,
-      "board": self.board,
-      "cards": self.cards
+      "board": self.board.to_dict(),
+      "cards": [card.id for card in self.cards]
     }
   
 
@@ -65,7 +65,7 @@ class Card(db.Model):
       "title": self.title,
       "description": self.description,
       "list_id": self.list_id,
-      "list": self.list,
+      "list": self.list.id,
     }
 
 
