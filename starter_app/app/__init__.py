@@ -44,7 +44,7 @@ def react_root(path):
 login = LoginManager(app)
 login.login_view = "session.login"
 
-
 @login.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    user = User.query.filter(User.id == id).first()
+    return user

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import {setUser} from './store/auth'
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import { CssBaseline } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar';
 import LoginNavbar from './components/LoginNavbar';
@@ -11,6 +13,21 @@ import Boards from './pages/Boards';
 import { AuthRoute, ProtectedRoute } from './components/utils/Routes';
 
 function App() {
+  const [loading, setLoading] = useState(true)
+  const dispatch = useDispatch()
+  useEffect(()=>{
+      const loadUser = async () => {
+        const res = await fetch("/api/session/current_user");
+        if (res.ok) {
+          res.data = await res.json(); // current user info
+          dispatch(setUser(res.data.user))
+          console.log(res.data.user)
+        }
+      }
+      setLoading(false);
+      loadUser();
+    }, [dispatch]);
+
   const currentUser = useSelector(state => state.auth.user);
 
   // useEffect(() => {

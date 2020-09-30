@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {useState} from 'react'
-import {signup} from '../store/auth'
+import {signup, registerErrors, clearErrors} from '../store/auth'
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, NavLink } from 'react-router-dom';
 import {fade,ThemeProvider,withStyles,makeStyles,createMuiTheme} from '@material-ui/core/styles';
@@ -51,6 +51,14 @@ const useStyles = makeStyles({
     TextField: {
         margin: "10px"
     },
+    logo: {
+      color: "#2196f3",
+      textDecoration: "none",
+      fontFamily: "Brush Script MT",
+      fontSize: "80px",
+      padding: "0",
+      margin: "0",
+  },
     Button: {
         backgroundColor: "#5AAC44",
         color: "white",
@@ -81,6 +89,11 @@ function SignupPage() {
   const [email,setEmail] = useState("")
   const [userToCreate,setUserToCreate] = useState({})
   const [errors,setErrors] = useState([])
+  const authErrors = useSelector(state=>state.auth.errors)
+
+  useEffect(()=>{
+    dispatch(clearErrors())
+  },[])
 
   useEffect(()=>{
     const validateUser= async ()=>{
@@ -88,24 +101,32 @@ function SignupPage() {
         const email = userToCreate.email
         const password = userToCreate.password
         const data = await dispatch(signup(username,email,password))
-        if (data){
-            setErrors(Object.values(data.errors))
-            console.log(data.errors)
-        }
     }
     if (userToCreate !== {}){
         validateUser()
     }
   },[userToCreate])
 
+  useEffect(()=>{
+    if (authErrors) setErrors(Object.values(authErrors))
+  }, [authErrors])
+
 const handleSubmit = (e) => {
     e.preventDefault()
-    if (password === confirmPassword){
+    if (!username){
+      dispatch(registerErrors({"8":"please enter a username"}))
+    }
+    if (!email){
+      dispatch(registerErrors({"10":"please enter an email address"}))
+    }
+    if (!password || !confirmPassword){
+      dispatch(registerErrors({"11":"please enter a password and confirm it"}))
+    }
+    if (!(password === confirmPassword)){
+      dispatch(registerErrors({"9":"password fields do not match"}))
+    }
+    if ((password === confirmPassword) && username && email){
       setUserToCreate({username,email,password})
-    } else {
-      const passwordError = "the passwords do not match"
-      if (!errors.includes(passwordError))
-        setErrors([...errors, passwordError ])
     }
 }
   
@@ -128,15 +149,16 @@ const handleSubmit = (e) => {
   return (
     <> 
       <div id="main-content-sign-up">
+        <div style={{width:"100%", display:"flex", justifyContent: "center"}}>
+          <div style={{width:"100%", color: "#2196f3", display:"flex", justifyContent: "center", textDecoration: "none", fontFamily: "Brush Script MT", justifySelf: "center", fontSize: "80px"}}>Jello</div>
+        </div>
       <Container fixed maxWidth="sm" classes={{root: classes.container}}>
         <h1 className="login-and-signup-header">Sign up for your account</h1>
         <Divider style={{width: "100%", margin: "10px"}}/>
-        <div style={{color:"red", display: "flex", flexDirection:"column"}}>
-          {errors.map((err,i)=>{
-            return(
-              <p>{errors[i]}</p>
-            )
-          })}
+        <div style={{color:"red", display: "flex", flexDirection:"column", alignContent:"center"}}>
+          {errors ? errors.map((err,i)=>{
+          return(<p style={{marginTop:"3px", marginBottom:"3px"}} key={i}>{errors[i]}</p>)
+          }): ""}
         </div>
         <form className='signup-form' method="POST" action="/api/session" onSubmit={handleSubmit}>
           <SignUpTextField InputLabelProps={{style: {color: "grey"}}} type="text" size="medium" placeholder="username" name="username" value={username} onChange={handleUsernameInput} />
@@ -145,7 +167,7 @@ const handleSubmit = (e) => {
           <SignUpTextField InputLabelProps={{style: {color: "grey"}}} style={{color:"red"}} type="password" size="medium" placeholder="confirm password" name="confirmPassword" value={confirmPassword} onChange={handleConfirmPasswordInput} />
           <Button size="small" classes={{ root: classes.Button }} type="submit">Sign Up and Log In</Button>
         </form>
-        <Divider style={{width: "100%", margin: "10px"}}/>
+        <Divider style={{width: "100%", margin: "24px"}}/>
         <NavLink id='login-navlink' to="/login"><p id="signUpText">Already have an account?  Log In</p></NavLink> 
       </Container>
       </div>

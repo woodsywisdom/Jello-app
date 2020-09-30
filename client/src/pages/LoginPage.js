@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {useState} from 'react'
-import {login} from '../store/auth'
+import {login, registerErrors, clearErrors} from '../store/auth'
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, NavLink } from 'react-router-dom';
 import {fade,ThemeProvider,withStyles,makeStyles,createMuiTheme} from '@material-ui/core/styles';
@@ -90,14 +90,17 @@ const ColorButton = withStyles((theme) => ({
 
 function LoginPage() {
     const classes = useStyles()
-
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.auth.user)
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
     const [userToLogin,setUserToLogin] = useState({})
     const [errors,setErrors] = useState("")
+    const authErrors = useSelector(state=>state.auth.errors)
 
+    useEffect(()=>{
+        dispatch(clearErrors())
+    },[])
 
     useEffect(()=>{
         const validateUser= async ()=>{
@@ -105,19 +108,22 @@ function LoginPage() {
             const password = userToLogin.password
             if (username && password) {
                 const data = await dispatch(login(username,password))
-                if (data){
-                    setErrors(data.errors)
-                }
-            }
+            } 
         }
         if (userToLogin !== {}){
             validateUser()
         }
     },[userToLogin])
 
+    useEffect(()=>{
+        if (authErrors) setErrors(Object.values(authErrors))
+    },[authErrors])
+
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        if (!username || !password){
+            dispatch(registerErrors({"1":"please enter a username and password!"}))
+        }
         setUserToLogin({username,password})
     }
 
@@ -136,15 +142,20 @@ function LoginPage() {
     return (
         <>
             <div id="main-content-login">
-                <Container fixed maxWidth="sm"
+                <div style={{width:"100%", display:"flex", justifyContent: "center"}}>
+                    <div style={{width:"100%", color: "#2196f3", display:"flex", justifyContent: "center", textDecoration: "none", fontFamily: "Brush Script MT", justifySelf: "center", fontSize: "80px"}}>Jello</div>
+                </div>
+                <Container fixed maxWidth="sm" 
                 classes={{root: classes.container}}>
                     <h1 className="login-and-signup-header">Welcome to Jello</h1>
                     <div style={{display: "flex", flexDirection: "column"}}>
                         <ColorButton size="small">Login As a Demo User</ColorButton>
                     </div>
                     <Divider style={{width: "100%", margin: "10px"}}/>
-                    <div style={{color:"red"}}>
-                        {errors}
+                    <div style={{color:"red", display: "flex", flexDirection:"column"}}>
+                        {errors ? errors.map((err,i)=>{
+                        return(<p style={{marginTop:"3px", marginBottom:"3px"}} key={i}>{errors[i]}</p>)
+                        }): ""}
                     </div>
                     <form className='login-form' method="PUT" action="/api/session" onSubmit={handleSubmit}>
                         <div id='login-form-fields' style={{width:"100%", display:"flex", flexDirection: "column"}}>
