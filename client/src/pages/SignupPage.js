@@ -51,6 +51,14 @@ const useStyles = makeStyles({
     TextField: {
         margin: "10px"
     },
+    logo: {
+      color: "#2196f3",
+      textDecoration: "none",
+      fontFamily: "Brush Script MT",
+      fontSize: "80px",
+      padding: "0",
+      margin: "0",
+  },
     Button: {
         backgroundColor: "#5AAC44",
         color: "white",
@@ -141,6 +149,9 @@ const handleSubmit = (e) => {
   return (
     <> 
       <div id="main-content-sign-up">
+        <div style={{width:"100%", display:"flex", justifyContent: "center"}}>
+          <div style={{width:"100%", color: "#2196f3", display:"flex", justifyContent: "center", textDecoration: "none", fontFamily: "Brush Script MT", justifySelf: "center", fontSize: "80px"}}>Jello</div>
+        </div>
       <Container fixed maxWidth="sm" classes={{root: classes.container}}>
         <h1 className="login-and-signup-header">Sign up for your account</h1>
         <Divider style={{width: "100%", margin: "10px"}}/>
@@ -156,7 +167,7 @@ const handleSubmit = (e) => {
           <SignUpTextField InputLabelProps={{style: {color: "grey"}}} style={{color:"red"}} type="password" size="medium" placeholder="confirm password" name="confirmPassword" value={confirmPassword} onChange={handleConfirmPasswordInput} />
           <Button size="small" classes={{ root: classes.Button }} type="submit">Sign Up and Log In</Button>
         </form>
-        <Divider style={{width: "100%", margin: "10px"}}/>
+        <Divider style={{width: "100%", margin: "24px"}}/>
         <NavLink id='login-navlink' to="/login"><p id="signUpText">Already have an account?  Log In</p></NavLink> 
       </Container>
       </div>

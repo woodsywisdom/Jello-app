@@ -142,6 +142,9 @@ function LoginPage() {
     return (
         <>
             <div id="main-content-login">
+                <div style={{width:"100%", display:"flex", justifyContent: "center"}}>
+                    <div style={{width:"100%", color: "#2196f3", display:"flex", justifyContent: "center", textDecoration: "none", fontFamily: "Brush Script MT", justifySelf: "center", fontSize: "80px"}}>Jello</div>
+                </div>
                 <Container fixed maxWidth="sm" 
                 classes={{root: classes.container}}>
                     <h1 className="login-and-signup-header">Welcome to Jello</h1>
