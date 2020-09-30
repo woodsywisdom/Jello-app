@@ -23,8 +23,8 @@ function App() {
           dispatch(setUser(res.data.user))
           console.log(res.data.user)
         }
+        setLoading(false);
       }
-      setLoading(false);
       loadUser();
     }, [dispatch]);
 
@@ -33,17 +33,19 @@ function App() {
   // useEffect(() => {
 
   // }, [dispatch, userID])
-
+  if (loading) {
+    return <p>loading...</p>
+  }
   return (
     <>
         <CssBaseline/>
         <BrowserRouter>
             { currentUser.id ? <Navbar/> : <LoginNavbar /> }
             <Switch>
-                <AuthRoute exact path='/' component={Home} currentUserId={currentUser.id}/>
+                <ProtectedRoute exact path='/users/:userid/boards' component={Boards} currentUserId={currentUser.id}/>
                 <AuthRoute exact path='/signup' component={SignupPage} currentUserId={currentUser.id}/>
                 <AuthRoute exact path='/login' component={LoginPage} currentUserId={currentUser.id}/>
-                <ProtectedRoute exact path='/users/:userid/boards' component={Boards} currentUserId={currentUser.id}/>
+                <AuthRoute exact path='/' component={Home} currentUserId={currentUser.id}/>
             </Switch>
         </BrowserRouter>
     </>
