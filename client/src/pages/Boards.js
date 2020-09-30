@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Container, IconButton, Icon, Link, Button } from '@material-ui/core';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -6,6 +6,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import AddIcon from '@material-ui/icons/Add';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles(( theme ) => ({
 
@@ -50,7 +51,16 @@ const useStyles = makeStyles(( theme ) => ({
 }));
 
 const Boards = () => {
+  const dispatch = useDispatch()
   const classes = useStyles();
+  // const [loading,setLoading] = useState(true)
+  // const [userBoards,setUserBoards] = useState({})
+  // const uBoards = useSelector(state=>state.entities.boards.userBoards)
+
+  // useEffect(()=>{
+  //   setUserBoards(userBoards)
+  // },[dispatch,uBoards])
+
 
   return (
     <Grid container className={classes.root}>
