@@ -29,14 +29,6 @@ const useStyles = makeStyles(( theme ) => ({
     textAlign: 'center',
   },
 
-  // sidebar: {
-  //   height: "100vh",
-  //   position: "sticky",
-  //   backgroundColor: "red",
-  //   zIindex: "3",
-  //   display: "flex",
-  //   direction: "column",
-  // }
   ul: {
     listStyle: 'none',
   },
@@ -68,8 +60,17 @@ const Boards = () => {
           <ul className={classes.ul}>
             <li>
               <Button href='#' color='black' startIcon={<DashboardIcon />}>Boards</Button>
+            </li>
+            <li>
               <Button href='#' color='black' startIcon={<DeveloperBoardIcon />}>Templates</Button>
+            </li>
+            <li>
               <Button href='#' color='black' startIcon={<ShowChartIcon />}>Home</Button>
+            </li>
+            <li>
+              <p>TEAMS</p>
+            </li>
+            <li>
               <Button href='#' color='black' startIcon={<AddIcon />}>Create a team</Button>
             </li>
           </ul>
