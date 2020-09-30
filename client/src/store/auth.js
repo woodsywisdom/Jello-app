@@ -102,13 +102,13 @@ export const logout = () => async dispatch => {
     return res;
 }
 
-export default function authReducer(state = {}, action) {
+export default function authReducer(state = { user: { id: null } }, action) {
     const newState = Object.assign({},state)
     const currentErrors = Object.assign({},state.errors)
     switch (action.type) {
         case SET_USER:
-            console.log(action.user)
-            return action.user;
+            newState.user = action.user
+            return newState
         case SIGNUP:
             console.log(action.user)
             return action.user

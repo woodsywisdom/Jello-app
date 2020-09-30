@@ -130,14 +130,14 @@ function LoginPage() {
     const handleUsernameInput = (e) => {
         setUsername(e.target.value)
     }
-    
+
     const handlePasswordInput = (e) => {
         setPassword(e.target.value)
     }
 
-    if (currentUser) {
-        return <Redirect to="/"/>
-    }
+    // if (currentUser) {
+    //     return <Redirect to="/"/>
+    // }
 
     return (
         <>
