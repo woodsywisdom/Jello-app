@@ -38,10 +38,9 @@ export const createBoard = (board) => async dispatch => {
 
 
 export const loadUserBoards = (userId) => async dispatch => {
-    const response = await fetch(`/api/boards/${userId}`)
+    const response = await fetch(`/api/boards/${userId}`);
     const boards = await response.json();
     if (response.ok) {
-        console.log(boards)
         dispatch(setUserBoards(boards.boards))
         dispatch(setUserLists(boards.lists))
         dispatch(setUserCards(boards.cards))
@@ -62,11 +61,11 @@ export default function boards(state={},action){
             newState.userBoards = userBoards;
             newState.userBoards[action.board.id] = action.board
             return newState
-        // case DELETE_USER_BOARD: 
+        // case DELETE_USER_BOARD:
         //     newState.userBoards = userBoards
         //     delete newState.userBoards[action.boardId]
         //     return newState
-        default: 
+        default:
             return state;
     }
 }

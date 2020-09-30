@@ -7,12 +7,8 @@ boards = Blueprint('boards', __name__)
 
 @boards.route("/<user_id>")
 def user_boards(user_id):
-    boards = db.session.query(Board) \
-                        .join(List) \
-                        .filter(Board.user_id == user_id) \
-                        .options(db.joinedload(Board.lists) \
-                        .options(db.subqueryload(List.cards))) \
-                        .all()
+    boards = db.session.query(Board).filter(Board.user_id == user_id)
+
     format_boards = {"boards":{},"lists":{},"cards":{}}
     for board in boards:
         format_boards["boards"][board.id] = board.to_dict()
@@ -20,7 +16,6 @@ def user_boards(user_id):
             format_boards["lists"][ls.id] = ls.to_dict()
             for card in ls.cards:
                 format_boards["cards"][card.id] = card.to_dict()
-    print(format_boards)
     return format_boards
 
 @boards.route("/",methods=["POST"])

@@ -24,7 +24,6 @@ function App() {
           res.data = await res.json(); // current user info
           dispatch(setUser(res.data.user))
           dispatch(loadUserBoards(res.data.user.id))
-          console.log(res.data.user)
         }
       }
       setLoading(false);
