@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 import LoginNavbar from './components/LoginNavbar';
 import Boards from './pages/Boards';
 import Board from './pages/Board';
+import BoardPage from './pages/BoardPage'
 import { AuthRoute, ProtectedRoute } from './components/utils/Routes';
 import {loadUserBoards} from './store/boards'
 
@@ -26,13 +27,16 @@ function App() {
           dispatch(loadUserBoards(res.data.user.id))
           console.log(res.data.user)
         }
+        setLoading(false);
       }
-      setLoading(false);
       loadUser();
     }, [dispatch]);
 
   const currentUser = useSelector(state => state.auth.user);
 
+  if (loading){
+    return <p>loading</p>
+  }
 
   return (
     <>
@@ -43,7 +47,7 @@ function App() {
                 <AuthRoute exact path='/' component={Home} currentUserId={currentUser.id}/>
                 <AuthRoute exact path='/signup' component={SignupPage} currentUserId={currentUser.id}/>
                 <AuthRoute exact path='/login' component={LoginPage} currentUserId={currentUser.id}/>
-                <Route exact path='/users/:userid/boards/:boardid' component={Board}/>
+                <ProtectedRoute exact path='/users/:userid/boards/:boardid' component={BoardPage} currentUserId={currentUser.id}/>
                 <ProtectedRoute exact path='/users/:userid/boards' component={Boards} currentUserId={currentUser.id}/>
             </Switch>
         </BrowserRouter>

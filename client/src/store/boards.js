@@ -23,7 +23,7 @@ export const setUserBoards = (boards) => {
 
 export const createBoard = (board) => async dispatch => {
     const csrfToken = Cookies.get("XSRF-TOKEN")
-    const res = await fetch(`/api/boards`,{
+    const res = await fetch(`/api/boards/create`,{
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
@@ -48,9 +48,9 @@ export const loadUserBoards = (userId) => async dispatch => {
     }
 }
 
-export default function boards(state={},action){
+export default function boards(state={userBoards:{}},action){
     const newState = Object.assign({},state)
-    const userBoards = Object.assign({},state.usersBoards)
+    const userBoards = Object.assign({},state.userBoards)
     switch (action.type){
         case SET_USER_BOARDS:
             newState.userBoards = userBoards

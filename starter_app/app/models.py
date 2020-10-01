@@ -44,8 +44,8 @@ class List(db.Model):
       "title": self.title,
       "description": self.description,
       "board_id": self.board_id,
-      "board": self.board.to_dict(),
-      "cards": [card.id for card in self.cards]
+      "board": self.board_id,
+      "cards": [card.to_dict() for card in self.cards]
     }
   
 

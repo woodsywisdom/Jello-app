@@ -4,7 +4,6 @@ from app.models import Board, db, User, List
 
 boards = Blueprint('boards', __name__)
 
-
 @boards.route("/<user_id>")
 def user_boards(user_id):
     boards = db.session.query(Board) \
@@ -23,7 +22,7 @@ def user_boards(user_id):
     print(format_boards)
     return format_boards
 
-@boards.route("/",methods=["POST"])
+@boards.route("/create",methods=["POST"])
 def create_board():
     data = request.json
     new_board = Board(
