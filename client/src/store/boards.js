@@ -39,9 +39,10 @@ export const createBoard = (title, userId) => async dispatch => {
     console.log(res);
     debugger
     res.data = await res.json()
-
-    dispatch(addBoard(res.data['board']))
-    return res
+    if (res.data['board']) {
+        dispatch(addBoard(res.data['board']))
+        return res
+    }
 }
 
 

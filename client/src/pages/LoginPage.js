@@ -125,6 +125,7 @@ function LoginPage() {
             dispatch(registerErrors({"1":"please enter a username and password!"}))
         }
         setUserToLogin({username,password})
+
     }
 
     const handleUsernameInput = (e) => {
