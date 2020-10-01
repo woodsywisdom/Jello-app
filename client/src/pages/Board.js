@@ -67,7 +67,7 @@ const onDragEnd = (result, lists, setLists,updateLists) => {
         cards: destCards
       }
     })
-    updateLists(source.droppableId,destination.droppableId,removed)
+    updateLists(Number(source.droppableId),Number(destination.droppableId),removed.id)
   }else{
   const list = lists[Number(source.droppableId)]
   console.log("SOURCE DROP",source.droppableId,Number(source.droppableId) )

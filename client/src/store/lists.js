@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import {setUserCards} from './cards'
 
 const SET_USER_LISTS = "/entities/lists/SET_USER_LISTS"
 const CREATE_LIST = "/entities/lists/CREATE_LIST"
@@ -25,6 +26,44 @@ export const createNewList = (newList) => async dispatch => {
     console.log("this is the new list: ",list)
     dispatch(addList(list))
 }
+
+export const moveCard = (removeFrom,addTo,cardId) => async dispatch => {
+    const jsonInstructions = JSON.stringify(
+        {"remove-from":removeFrom,
+        "add-to":addTo,
+        "card-id":cardId})
+    const csrfToken = Cookies.get("XSRF-TOKEN");
+    const response = await fetch(`/api/lists/move-card`, {
+    method: "PATCH",
+    headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": csrfToken,
+        },
+    body: jsonInstructions
+    })
+    const data = await response.json();
+    console.log("this is the new list: ",data)
+    dispatch(setUserLists(data["lists"]))
+    dispatch(setUserCards(data["cards"]))
+}
+
+// export const updateCardLists=(removeFrom,addTo,cardId) => {
+//     dispatch(updateListOnCard(addTo,cardId))
+//     dispatch(removeCardFromList(removeFrom,cardId))
+//     dispatch(addCardToList(list,cardId))
+// }
+
+// export const removeCardFromList=(list,cardId)=>{
+    
+// }
+
+// export const addCardToList=(list,cardId)=>{
+
+// }
+
+// export const updateListOnCard=(cardId,list)=>{
+
+// }
 
 export const addList = (list) => {
     return {

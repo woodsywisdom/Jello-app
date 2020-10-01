@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import BoardContext from './BoardContext'
 import Board from './Board'
 import { useParams } from 'react-router-dom';
+import {moveCard} from '../store/lists'
 
 const CardsFromDB = [
     {id: 1, title:"hey bu",description: "hello"},
     {id: 2, title:"hey bu",description: "yall"}
   ]
-  
-
 
 const BoardPage=()=>{
+    const dispatch = useDispatch()
     const params = useParams()
     const boardId = Number(params.boardid)
     const [lists,setLists] = useState([])
@@ -31,8 +31,9 @@ const BoardPage=()=>{
       }
     }, [userBoard, userCards, userLists])
 
-    const updateLists = (a,b,c)=>{
-        console.log(a,b,"removed",c)
+    const updateLists = (removeFrom,addTo,cardId)=>{
+        console.log(removeFrom,addTo,"removed",cardId)
+        dispatch(moveCard(removeFrom,addTo,cardId))
     }
 
     const Lists = {}
