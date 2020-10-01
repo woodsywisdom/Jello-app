@@ -29,7 +29,6 @@ export const login = (username, password) => async dispatch => {
             return
         }
         const csrfToken = Cookies.get("XSRF-TOKEN");
-        debugger
         const res = await fetch('/api/session/', {
             method: "put",
             headers: {

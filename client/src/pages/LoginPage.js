@@ -103,17 +103,17 @@ function LoginPage() {
     },[])
 
     useEffect(()=>{
-        const validateUser= async ()=>{
+        const validateUser= async () => {
             const username = userToLogin.username
             const password = userToLogin.password
             if (username && password) {
                 const data = await dispatch(login(username,password))
-            } 
+            }
         }
         if (userToLogin !== {}){
             validateUser()
         }
-    },[userToLogin])
+    },[userToLogin, dispatch])
 
     useEffect(()=>{
         if (authErrors) setErrors(Object.values(authErrors))
@@ -136,7 +136,7 @@ function LoginPage() {
     }
 
     // if (currentUser) {
-    //     return <Redirect to="/"/>
+    //     return <Redirect to='/users/:userid/boards'/>
     // }
 
     return (
@@ -145,7 +145,7 @@ function LoginPage() {
                 <div style={{width:"100%", display:"flex", justifyContent: "center"}}>
                     <div style={{width:"100%", color: "#2196f3", display:"flex", justifyContent: "center", textDecoration: "none", fontFamily: "Brush Script MT", justifySelf: "center", fontSize: "80px"}}>Jello</div>
                 </div>
-                <Container fixed maxWidth="sm" 
+                <Container fixed maxWidth="sm"
                 classes={{root: classes.container}}>
                     <h1 className="login-and-signup-header">Welcome to Jello</h1>
                     <div style={{display: "flex", flexDirection: "column"}}>
