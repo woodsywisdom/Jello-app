@@ -10,7 +10,7 @@ class Board(db.Model):
 
   id = db.Column(db.Integer, primary_key = True)
   title = db.Column(db.String(40), nullable = False)
-  description = db.Column(db.String(2000), nullable = False)
+  description = db.Column(db.String(2000))
   user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
   user = db.relationship("User", back_populates="boards")
@@ -26,13 +26,13 @@ class Board(db.Model):
       "lists": [list.id for list in self.lists]
     }
 
-  
+
 class List(db.Model):
   __tablename__ = 'lists'
 
   id = db.Column(db.Integer, primary_key = True)
   title = db.Column(db.String(40), nullable = False)
-  description = db.Column(db.String(2000), nullable = False)
+  description = db.Column(db.String(2000))
   board_id = db.Column(db.Integer, db.ForeignKey("boards.id"))
 
   board = db.relationship("Board", back_populates="lists")
@@ -47,14 +47,14 @@ class List(db.Model):
       "board": self.board.to_dict(),
       "cards": [card.id for card in self.cards]
     }
-  
+
 
 class Card(db.Model):
   __tablename__ = 'cards'
 
   id = db.Column(db.Integer, primary_key = True)
   title = db.Column(db.String(40), nullable = False)
-  description = db.Column(db.String(2000), nullable = False)
+  description = db.Column(db.String(2000))
   list_id = db.Column(db.Integer, db.ForeignKey("lists.id"))
 
   list = db.relationship("List", back_populates="cards")
@@ -91,7 +91,7 @@ class User(db.Model, UserMixin):
   @property
   def password(self):
     return self.hashed_password
-  
+
 
   @password.setter
   def password(self, password):

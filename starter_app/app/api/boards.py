@@ -18,15 +18,19 @@ def user_boards(user_id):
                 format_boards["cards"][card.id] = card.to_dict()
     return format_boards
 
-@boards.route("/",methods=["POST"])
+@boards.route("/",methods=['GET',"POST"])
 def create_board():
-    data = request.json
-    new_board = Board(
-        title=data['title'],
-        description=data['description'],
-        user_id=data['userId']
-    )
-    db.session.add(new_board)
-    db.session.commit()
-    format_board = new_board.to_dict()
-    return format_board
+    if request.json:
+        print(request)
+        data = request.json
+        print(data)
+        new_board = Board(
+            title=data['title'],
+            user_id=data['userId']
+        )
+        db.session.add(new_board)
+        db.session.commit()
+        format_board = new_board.to_dict()
+        return {'board': format_board}
+    else:
+        return {'board': 'None'}
