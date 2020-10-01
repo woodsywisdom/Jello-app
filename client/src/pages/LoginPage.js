@@ -108,7 +108,7 @@ function LoginPage() {
             const password = userToLogin.password
             if (username && password) {
                 const data = await dispatch(login(username,password))
-            } 
+            }
         }
         if (userToLogin !== {}){
             validateUser()
@@ -125,6 +125,7 @@ function LoginPage() {
             dispatch(registerErrors({"1":"please enter a username and password!"}))
         }
         setUserToLogin({username,password})
+
     }
 
     const handleUsernameInput = (e) => {
@@ -145,7 +146,7 @@ function LoginPage() {
                 <div style={{width:"100%", display:"flex", justifyContent: "center"}}>
                     <div style={{width:"100%", color: "#2196f3", display:"flex", justifyContent: "center", textDecoration: "none", fontFamily: "Brush Script MT", justifySelf: "center", fontSize: "80px"}}>Jello</div>
                 </div>
-                <Container fixed maxWidth="sm" 
+                <Container fixed maxWidth="sm"
                 classes={{root: classes.container}}>
                     <h1 className="login-and-signup-header">Welcome to Jello</h1>
                     <div style={{display: "flex", flexDirection: "column"}}>
