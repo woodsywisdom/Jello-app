@@ -136,7 +136,7 @@ function LoginPage() {
     }
 
     // if (currentUser) {
-    //     return <Redirect to="/"/>
+    //     return <Redirect to='/users/:userid/boards'/>
     // }
 
     return (

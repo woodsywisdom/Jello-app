@@ -21,18 +21,26 @@ export const setUserBoards = (boards) => {
 }
 
 
-export const createBoard = (board) => async dispatch => {
+export const createBoard = (title, userId) => async dispatch => {
+    if (!title || !userId) return;
+    console.log(title, userId);
+    debugger
+    const test = JSON.stringify({title, userId})
+    console.log(test)
     const csrfToken = Cookies.get("XSRF-TOKEN")
-    const res = await fetch(`/api/boards`,{
+    const res = await fetch(`/api/boards/`,{
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
             "X-CSRF-TOKEN": csrfToken,
         },
-        body: JSON.stringify(board)
+        body: test
     })
+    console.log(res);
+    debugger
     res.data = await res.json()
-    dispatch(addBoard(res.data))
+
+    dispatch(addBoard(res.data['board']))
     return res
 }
 
@@ -49,7 +57,7 @@ export const loadUserBoards = (userId) => async dispatch => {
 
 export default function boards(state={},action){
     const newState = Object.assign({},state)
-    const userBoards = Object.assign({},state.usersBoards)
+    const userBoards = Object.assign({},state.userBoards)
     switch (action.type){
         case SET_USER_BOARDS:
             newState.userBoards = userBoards

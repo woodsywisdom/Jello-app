@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Container, IconButton, Icon, Link, Button } from '@material-ui/core';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -6,15 +6,29 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import AddIcon from '@material-ui/icons/Add';
-import { loadUserBoards } from '../store/boards'
+import { loadUserBoards, createBoard } from '../store/boards'
 import { useDispatch, useSelector } from 'react-redux';
+import Modal from '@material-ui/core/Modal';
+import TextField from '@material-ui/core/TextField';
 
-const useStyles = makeStyles(( theme ) => ({
+function getModalStyle() {
+  const top = 10
+  const left = 50
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
+const useStyles = makeStyles((theme) => ({
 
   paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
+    position: 'absolute',
+    width: 400,
+    backgroundColor: "rgb(0, 121, 191)",
+    padding: theme.spacing(2, 4, 3),
   },
 
   root: {
@@ -33,7 +47,7 @@ const useStyles = makeStyles(( theme ) => ({
 
   ul: {
     listStyle: 'none',
-    marginRight: "30px",
+    marginRight: "20px",
   },
 
   buttons: {
@@ -62,6 +76,9 @@ const useStyles = makeStyles(( theme ) => ({
     backgroundColor: "rgb(0, 121, 191)",
     alignItems: "center",
     justifyContent: "center",
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif",
+    color: 'white',
+    fontWeight: '700',
   },
 
 }));
@@ -69,13 +86,47 @@ const useStyles = makeStyles(( theme ) => ({
 const Boards = () => {
   const classes = useStyles();
   const dispatch = useDispatch()
-  const user = useSelector(state=>state.auth.user);
+  const user = useSelector(state => state.auth.user);
+  const [title, setTitle] = useState("");
+  const [modalStyle] = useState(getModalStyle);
+  const [open, setOpen] = useState(false);
+  const userId = user.id;
 
-  useEffect(()=>{
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(title, userId)
+    debugger
+    dispatch(createBoard(title, userId))
+  };
+
+  const handleBoard = (e) => {
+    setTitle(e.target.value)
+  }
+
+  // const body = (
+
+  //     <div style={modalStyle} className={classes.paper}>
+  //       <form>
+  //         <TextField placeholder="Add Board Title" name="title" value={title} onChange={handleBoard}/>
+  //         <button onClick={handleSubmit} type='submit'>Create Board</button>
+  //       </form>
+  //     </div>
+
+  // );
+
+  useEffect(() => {
     dispatch(loadUserBoards(user.id))
-  },[dispatch])
+  }, [dispatch])
 
-  const boards = useSelector(state=>state.entities.boards.userBoards);
+  const boards = useSelector(state => state.entities.boards.userBoards);
 
   if (boards === undefined) {
     return null;
@@ -84,15 +135,15 @@ const Boards = () => {
   return (
     <Grid container className={classes.root}>
       <Grid container spacing={0}>
-        <Grid item xs={2}/>
+        <Grid item xs={2} />
         <Grid container item xs={2} className={classes.sidebar}>
           <ul className={classes.ul}>
             <li className={classes.li}>
-              <Button href='#' className={classes.buttons} color='primary' startIcon={<DashboardIcon />}>Boards</Button>
-              <Button href='#' className={classes.buttons} color='primary' startIcon={<DeveloperBoardIcon />}>Templates</Button>
-              <Button href='#' className={classes.buttons} color='primary' startIcon={<ShowChartIcon />}>Home</Button>
+              <Button href='#' className={classes.buttons} startIcon={<DashboardIcon />}>Boards</Button>
+              <Button href='#' className={classes.buttons} startIcon={<DeveloperBoardIcon />}>Templates</Button>
+              <Button href='#' className={classes.buttons} startIcon={<ShowChartIcon />}>Home</Button>
               <p>TEAMS</p>
-              <Button href='#' className={classes.buttons} color='primary' startIcon={<AddIcon />}>Create a team</Button>
+              <Button href='#' className={classes.buttons} startIcon={<AddIcon />}>Create a team</Button>
             </li>
           </ul>
         </Grid>
@@ -102,19 +153,34 @@ const Boards = () => {
             <h3 className={classes.h3}>Personal Boards</h3>
           </Grid>
           <Grid container item xs={12}>
-            {Object.values(boards).map(object=>{
+            {Object.values(boards).map(object => {
               return (
-                <Grid className={classes.board} item xs={3}>
+                <Grid key={object.id} className={classes.board} item xs={3}>
                   <p className={classes.p}>{object.title}</p>
                 </Grid>
               )
             })}
-            <Grid className={classes.Createboard} item xs={3}>
-              <p className={classes.p}>Create a Board</p>
+            <Grid item className={classes.Createboard} xs={3}>
+              <p onClick={handleOpen}>
+                Create Board
+                </p>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+              >
+                <div style={modalStyle} className={classes.paper}>
+                  <form>
+                    <TextField placeholder="Add Board Title" name="title" value={title} onChange={handleBoard} />
+                    <button onClick={handleSubmit}>Create Board</button>
+                  </form>
+                </div>
+              </Modal>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={2}/>
+        <Grid item xs={2} />
       </Grid>
     </Grid>
   )
