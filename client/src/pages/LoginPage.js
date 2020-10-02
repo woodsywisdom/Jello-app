@@ -94,7 +94,6 @@ function LoginPage() {
     const currentUser = useSelector(state => state.auth.user)
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
-    const [userToLogin,setUserToLogin] = useState({})
     const [errors,setErrors] = useState("")
     const authErrors = useSelector(state=>state.auth.errors)
 
@@ -103,42 +102,32 @@ function LoginPage() {
     },[])
 
     useEffect(()=>{
-        const validateUser= async ()=>{
-            const username = userToLogin.username
-            const password = userToLogin.password
-            if (username && password) {
-                const data = await dispatch(login(username,password))
-            }
-        }
-        if (userToLogin !== {}){
-            validateUser()
-        }
-    },[userToLogin])
-
-    useEffect(()=>{
         if (authErrors) setErrors(Object.values(authErrors))
     },[authErrors])
 
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!username || !password){
-            dispatch(registerErrors({"1":"please enter a username and password!"}))
+        if (!username || !password) {
+            await dispatch(registerErrors({"1":"Must enter username and password"}));
+        } else {
+            const res = await dispatch(login(username, password));
+            // console.log(res.errors);
+
+            if (res.errors){
+                await dispatch(registerErrors({"1":"Incorrect username or password!"}));
+            }
+            else{
+                document.location.reload();
+            }
         }
-        setUserToLogin({username,password})
-
     }
 
-    const handleUsernameInput = (e) => {
-        setUsername(e.target.value)
+    const demoLogin = async (e) => {
+        e.preventDefault();
+        await dispatch(login('DemoUser', 'password'));
+        document.location.reload();
     }
-
-    const handlePasswordInput = (e) => {
-        setPassword(e.target.value)
-    }
-
-    // if (currentUser) {
-    //     return <Redirect to="/"/>
-    // }
 
     return (
         <>
@@ -150,7 +139,7 @@ function LoginPage() {
                 classes={{root: classes.container}}>
                     <h1 className="login-and-signup-header">Welcome to Jello</h1>
                     <div style={{display: "flex", flexDirection: "column"}}>
-                        <ColorButton size="small">Login As a Demo User</ColorButton>
+                        <ColorButton size="small" onClick={demoLogin}>Login As a Demo User</ColorButton>
                     </div>
                     <Divider style={{width: "100%", margin: "10px"}}/>
                     <div style={{color:"red", display: "flex", flexDirection:"column"}}>
@@ -160,8 +149,8 @@ function LoginPage() {
                     </div>
                     <form className='login-form' method="PUT" action="/api/session" onSubmit={handleSubmit}>
                         <div id='login-form-fields' style={{width:"100%", display:"flex", flexDirection: "column"}}>
-                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="text" placeholder="username" size="medium" name="password" value={username} onChange={handleUsernameInput} />
-                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="password" placeholder="password" size="medium" name="password" value={password} onChange={handlePasswordInput} />
+                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="text" placeholder="username" size="medium" name="password" value={username} onChange={e => setUsername(e.target.value)}/>
+                            <LoginTextField InputLabelProps={{style: {color: "grey"}}} type="password" placeholder="password" size="medium" name="password" value={password} onChange={e => setPassword(e.target.value)}/>
                         </div>
                         <Button size="small" classes={{ root: classes.Button }} type="submit">Log in</Button>
                     </form>
@@ -170,6 +159,7 @@ function LoginPage() {
                 </Container>
             </div>
         </>
+
     )
 
 }

@@ -3,8 +3,6 @@ from flask import (Blueprint, jsonify, url_for, request, redirect, render_templa
 from app.models import User, db
 from app.forms import LoginForm, SignUpForm
 
-
-
 session = Blueprint('session', __name__)
 
 @session.route("/current_user")

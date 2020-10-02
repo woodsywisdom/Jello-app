@@ -10,7 +10,10 @@ import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar';
 import LoginNavbar from './components/LoginNavbar';
 import Boards from './pages/Boards';
+import Board from './pages/Board';
+import BoardPage from './pages/BoardPage'
 import { AuthRoute, ProtectedRoute } from './components/utils/Routes';
+import {loadUserBoards} from './store/boards'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -21,7 +24,7 @@ function App() {
         if (res.ok) {
           res.data = await res.json(); // current user info
           dispatch(setUser(res.data.user))
-          console.log(res.data.user)
+          dispatch(loadUserBoards(res.data.user.id))
         }
         setLoading(false);
       }
@@ -45,6 +48,8 @@ function App() {
                 <ProtectedRoute exact path='/users/:userid/boards' component={Boards} currentUserId={currentUser.id}/>
                 <AuthRoute exact path='/signup' component={SignupPage} currentUserId={currentUser.id}/>
                 <AuthRoute exact path='/login' component={LoginPage} currentUserId={currentUser.id}/>
+                <ProtectedRoute exact path='/users/:userid/boards/:boardid' component={BoardPage} currentUserId={currentUser.id}/>
+                <ProtectedRoute exact path='/users/:userid/boards' component={Boards} currentUserId={currentUser.id}/>
                 <AuthRoute exact path='/' component={Home} currentUserId={currentUser.id}/>
             </Switch>
         </BrowserRouter>
