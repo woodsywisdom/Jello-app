@@ -226,7 +226,7 @@ const Boards = () => {
                 {Object.values(boards).map(object => {
                   return (
                     <Grid key={object.id} item xs={3}>
-                      <NavLink style={{textDecoration:"none"}} to={`${object.id}`}>
+                      <NavLink style={{textDecoration:"none"}} to={`boards/${object.id}`}>
                         <Card className={classes.board}>
                           <p>{object.title}</p>
                         </Card>

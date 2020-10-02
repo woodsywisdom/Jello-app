@@ -129,8 +129,12 @@ const List = ({list,id}) => {
     }
     
     useEffect(()=>{
-        console.log("miraguey",cards)
-        
+        const cardIds = Object.values(cards).map(card=>card.id)
+        const listIds = list.cards.map(card=>card.id)
+        const newId = cardIds.filter(id=> !listIds.includes(id))
+        console.log("newId wut wut wuuut",newId)
+        const newCard = cards[newId]
+        console.log("newCardwutwut",newCard)
     },[cards])
 
     const addHover=(e,cardId)=>{
