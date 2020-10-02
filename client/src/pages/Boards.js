@@ -126,13 +126,8 @@ const Boards = () => {
     setOpen(false);
   };
 
-  const handleBoardClick = (e,boardId) => {
-    return console.log(boardId)
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(title, userId)
     if(title && userId) dispatch(createBoard(title, userId))
     handleClose()
     setTitle("")

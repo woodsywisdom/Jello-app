@@ -42,6 +42,13 @@ class List(db.Model):
   board = db.relationship("Board", back_populates="lists")
   cards = db.relationship("Card", back_populates="list")
 
+  def cards_object(self):
+    card_object = {}
+    for card in self.cards:
+      card_object[card.id] = card.to_dict()
+    print(card_object)
+    return card_object
+
   def to_dict(self):
     return {
       "id": self.id,

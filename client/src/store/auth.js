@@ -110,7 +110,6 @@ export default function authReducer(state = { user: { id: null } }, action) {
             newState.user = action.user
             return newState
         case SIGNUP:
-            console.log(action.user)
             return action.user
         case REGISTER_ERRORS:
             console.log(action.errors)

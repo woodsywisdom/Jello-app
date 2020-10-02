@@ -5,6 +5,7 @@ import {setUserCards} from './cards'
 const SET_USER_BOARDS = '/entities/boards/SET_USER_BOARDS'
 const CREATE_BOARD = '/entities/boards/CREATE_BOARD'
 const UPDATE_BOARD = '/entities/boards/UPDATE_BOARD'
+const UPDATE_LIST = '/entities/boards/UPDATE_LIST'
 // const DELETE_USER_BOARD = 'entities/boards/DELETE_BOARD'
 
 export const addBoard = (board) => {
@@ -13,6 +14,8 @@ export const addBoard = (board) => {
         board
     }
 }
+
+
 
 export const setUserBoards = (boards) => {
     return {
@@ -30,9 +33,7 @@ export const updateBoard=(board)=>{
 
 export const createBoard = (title, userId) => async dispatch => {
     if (!title || !userId) return;
-    console.log(title, userId);
     const test = JSON.stringify({title, userId})
-    console.log(test)
     const csrfToken = Cookies.get("XSRF-TOKEN")
     const res = await fetch(`/api/boards/create`,{
         method: 'POST',
@@ -81,6 +82,16 @@ export default function boards(state={userBoards:{}},action){
             boardToUpdate.lists = action.board.lists
             newState.userBoards[action.board.id] = boardToUpdate
             return newState
+        case UPDATE_LIST:
+            newState.userBoards = userBoards;
+            const boardUpdate = Object.assign({},state.userBoards[action.boardId])
+            const listToUpdate = Object.assign({},state.userBoards[action.boardId].lists[action.listId])
+            const cardListToUpdate = Object.assign({},state.userBoards[action.boardId].lists[action.listId].cards)
+            newState.userBoards[action.boardId] = boardUpdate
+            boardUpdate.lists[action.listId] = listToUpdate
+            listToUpdate.cards = cardListToUpdate
+            newState.userBoards[action.boardId].lists[action.listId].cards = action.cards
+
         // case DELETE_USER_BOARD:
         //     newState.userBoards = userBoards
         //     delete newState.userBoards[action.boardId]

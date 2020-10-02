@@ -1,8 +1,10 @@
 import Cookies from 'js-cookie'
 import {updateBoard} from './boards'
+import {updateListOnCard} from './cards'
 
 const SET_USER_LISTS = "/entities/lists/SET_USER_LISTS"
 const CREATE_LIST = "/entities/lists/CREATE_LIST"
+const UPDATE_CARDS_ON_LIST = "/entities/lists/UPDATE_CARDS_ON_LIST"
 
 export const setUserLists = (lists) => {
     return {
@@ -23,16 +25,18 @@ export const createNewList = (newList) => async dispatch => {
     body: jsonList
     })
     const list = await response.json();
-    console.log("this is the new list: ",list)
     dispatch(addList(list))
 }
 
-export const moveCard = (boardId,addTo,cardId) => async dispatch => {
+export const moveCard = (boardId,addToId,cardId,removeFromId) => async dispatch => {
+    console.log("removed from",removeFromId)
     const jsonInstructions = JSON.stringify(
-        {"add-to":addTo,
+        {"add-to":addToId,
         "card-id":cardId,
-        "board":boardId
+        "board":boardId,
+        "remove-from":removeFromId
     })
+    console.log(jsonInstructions)
     const csrfToken = Cookies.get("XSRF-TOKEN");
     const response = await fetch(`/api/lists/move-card`, {
     method: "PATCH",
@@ -43,23 +47,22 @@ export const moveCard = (boardId,addTo,cardId) => async dispatch => {
     body: jsonInstructions
     })
     const data = await response.json();
-    console.log("this is the new list: ",data)
-    // dispatch(setUserLists(data["lists"]))
-    // dispatch(setUserCards(data["cards"]))
+    console.log("look foo: ",data)
     dispatch(updateBoard(data["board"]))
+    dispatch(updateCardsOnList(data["addToListId"],data["addToCardObject"],data["removeFromListId",data["removeFromCardObject"]]))
+    dispatch(updateListOnCard(data["card"]))
 }
 
-// export const removeCardFromList=(list,cardId)=>{
-    
-// }
+export const updateCardsOnList = (listId,cardObject,removeListId,removeListCardObject)=>{
+    return {
+        type: UPDATE_CARDS_ON_LIST,
+        listId,
+        cardObject,
+        removeListId,
+        removeListCardObject
+    }
+}
 
-// export const addCardToList=(list,cardId)=>{
-
-// }
-
-// export const updateListOnCard=(cardId,list)=>{
-
-// }
 
 export const addList = (list) => {
     return {
@@ -81,6 +84,15 @@ export default function lists(state={},action){
         case CREATE_LIST:
             newState.userLists = userLists;
             newState.userLists[action.list.id] = action.list
+            return newState
+        case UPDATE_CARDS_ON_LIST:
+            newState.userLists = userLists;
+            const listWithNewCards = Object.assign({},state.userLists[action.listId])
+            const listRemoveCards = Object.assign({},state.userLists[action.removeListId])
+            listWithNewCards.cards = action.cardObject
+            listRemoveCards.cards = action.removeListCardObject
+            newState.userLists[action.listId] = listWithNewCards
+            newState.userLists[action.removeListId] = listRemoveCards
             return newState
         default: 
             return state;

@@ -1,7 +1,11 @@
 import Cookies from 'js-cookie'
+import { updateBoard } from './boards'
+import { updateCardsOnList} from './lists'
 
 const SET_USER_CARDS = "/entities/cards/SET_USER_CARDS"
 const CREATE_CARD = "/entities/cards/CREATE_CARD"
+const UPDATE_LIST_ON_CARD = "/entities/cards/UPDATE_LIST_ON_CARD"
+
 
 export const setUserCards = (cards) => {
     return {
@@ -10,20 +14,31 @@ export const setUserCards = (cards) => {
     }
 }
 
-export const createNewCard = (newCard) => async dispatch => {
-    const jsonCard = JSON.stringify(newCard)
+export const updateListOnCard = (card) => {
+    return {
+        type: UPDATE_LIST_ON_CARD,
+        card
+    }
+}
+
+export const createNewCard = (newCard,boardId) => async dispatch => {
+    const jsonCard = JSON.stringify({...newCard,boardId})
+    console.log("WOWOWOWOWOWOWO")
     const csrfToken = Cookies.get("XSRF-TOKEN");
-    const response = await fetch(`/api/cards/create`, {
-    method: "post",
+    const response = await fetch(`/api/lists/add-card`, {
+    method: "POST",
     headers: {
         "Content-Type": "application/json",
         "X-CSRF-TOKEN": csrfToken,
         },
     body: jsonCard
     })
-    const card = await response.json();
-    console.log("this is the new card: ",card)
-    dispatch(addCard(card))
+    const data = await response.json();
+    console.log("this is the new card!!: ",data)
+    //TODO: TECHNICALLY WE DONT NEED THIS CALL TO UPDATE BOARD
+    dispatch(updateBoard(data['board']))
+    dispatch(updateCardsOnList(data['listId'],data['cardObject']))
+    dispatch(addCard(data['card']))
 }
 
 
@@ -45,6 +60,10 @@ export default function cards(state={},action){
             })
             return newState;
         case CREATE_CARD:
+            newState.userCards = userCards;
+            newState.userCards[action.card.id] = action.card
+            return newState
+        case UPDATE_LIST_ON_CARD:
             newState.userCards = userCards;
             newState.userCards[action.card.id] = action.card
             return newState
