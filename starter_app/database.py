@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from app import app, db
-from app.models import User, Board
+from app.models import User, Board, List
 
 with app.app_context():
   db.drop_all()
@@ -15,10 +15,22 @@ with app.app_context():
   angela = User(username = 'Angela', email = 'angela@aa.io', password='password')
   soonmi = User(username = 'Soon-Mi', email = 'soonmi@aa.io', password='password')
   alissa = User(username = 'Alissa', email = 'alissa@aa.io', password='password')
+  shoppingListDemo = Board(title = 'Shopping', description = 'My grocery shopping list', user_id = 1)
+  readingListDemo = Board(title = 'Reading', description = 'My Reading list', user_id = 1)
+  myselfDemo = Board(title = 'Graph', description = 'Keeping tabs on myself', user_id = 1)
+  friendsDemo = Board(title = 'Broseph', description = 'Keeping tabs on my friends', user_id = 1)
   shoppingList = Board(title = 'Shopping', description = 'My grocery shopping list', user_id = 2)
   readingList = Board(title = 'Reading', description = 'My Reading list', user_id = 3)
   myself = Board(title = 'Graph', description = 'Keeping tabs on myself', user_id = 2)
   friends = Board(title = 'Broseph', description = 'Keeping tabs on my friends', user_id = 3)
+  veggies = List(title = 'Veggies', description = 'Good for yer digestion', board_id = 1)
+  meat = List(title = 'Meat', description = 'Less good for yer digestion', board_id = 1)
+  frozen = List(title = 'Frozen', description = 'Beat the heat', board_id = 1)
+  things5 = List(title = 'Things', description = 'Things', board_id = 5)
+  things6 = List(title = 'Things', description = 'Things', board_id = 6)
+  things7 = List(title = 'Things', description = 'Things', board_id = 7)
+  things8 = List(title = 'Things', description = 'Things', board_id = 8)
+
 
   db.session.add(demo)
   db.session.add(ian)
@@ -27,9 +39,20 @@ with app.app_context():
   db.session.add(angela)
   db.session.add(soonmi)
   db.session.add(alissa)
+  db.session.add(shoppingListDemo)
+  db.session.add(readingListDemo)
+  db.session.add(myselfDemo)
+  db.session.add(friendsDemo)
   db.session.add(shoppingList)
   db.session.add(readingList)
   db.session.add(myself)
   db.session.add(friends)
+  db.session.add(veggies)
+  db.session.add(meat)
+  db.session.add(frozen)
+  db.session.add(things5)
+  db.session.add(things6)
+  db.session.add(things7)
+  db.session.add(things8)
 
   db.session.commit()
