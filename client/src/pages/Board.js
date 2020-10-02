@@ -46,7 +46,7 @@ const ListsFromDB = {
   }
 }
 
-const onDragEnd = (result, lists, setLists,updateLists) => {
+const onDragEnd = (result, lists, setLists,updateLists,boardId) => {
   if (!result.destination) return;
   const {source, destination} = result;
   if (source.droppableId !== destination.droppableId) {
@@ -67,7 +67,7 @@ const onDragEnd = (result, lists, setLists,updateLists) => {
         cards: destCards
       }
     })
-    updateLists(Number(source.droppableId),Number(destination.droppableId),removed.id)
+    updateLists(boardId,Number(destination.droppableId),removed.id)
   }else{
   const list = lists[Number(source.droppableId)]
   console.log("SOURCE DROP",source.droppableId,Number(source.droppableId) )
@@ -88,6 +88,7 @@ const onDragEnd = (result, lists, setLists,updateLists) => {
 const Board = (props) => {
   const context = useContext(BoardContext)
   const updateLists = context.updateLists
+  const boardId = context.boardId
 
   const [lists,setLists] = useState({})
   useEffect(()=>{
@@ -100,7 +101,7 @@ const Board = (props) => {
   return (
     <>
         <div style={{display:"flex", justifyContent: "center", height:"100%"}}>
-          <DragDropContext onDragEnd={result => onDragEnd(result,lists,setLists,updateLists)}>
+          <DragDropContext onDragEnd={result => onDragEnd(result,lists,setLists,updateLists,boardId)}>
             {Object.entries(lists).map(([id,list])=>{
               return (
                 <Droppable droppableId={`${id}`} key={id}>

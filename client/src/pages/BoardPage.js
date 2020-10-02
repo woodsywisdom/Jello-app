@@ -24,16 +24,16 @@ const BoardPage=()=>{
     let userLists = useSelector(state => state.entities.lists.userLists)
     useEffect(()=>{
       if (userBoard && userCards && userLists) {
-        setLists(Object.values(userLists))
+        setLists(Object.values(userBoard.lists))
         setBoard(userBoard)
         setCards(Object.values(userCards))
         setLoading(false)
       }
     }, [userBoard, userCards, userLists])
 
-    const updateLists = (removeFrom,addTo,cardId)=>{
-        console.log(removeFrom,addTo,"removed",cardId)
-        dispatch(moveCard(removeFrom,addTo,cardId))
+    const updateLists = (boardId,addTo,cardId)=>{
+        console.log(boardId,addTo,"removed",cardId)
+        dispatch(moveCard(boardId,addTo,cardId))
     }
 
     const Lists = {}
@@ -63,7 +63,7 @@ const BoardPage=()=>{
     if (loading) return "loading"
 
     return(
-        <BoardContext.Provider value={{Lists, updateLists}}>
+        <BoardContext.Provider value={{Lists, updateLists,boardId}}>
             <Board/>
         </BoardContext.Provider>
     )

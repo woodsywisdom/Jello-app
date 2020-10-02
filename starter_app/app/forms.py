@@ -16,3 +16,8 @@ class SignUpForm(FlaskForm):
     password = PasswordField("password", validators=[DataRequired()])
     confirm_password = PasswordField("confirm password", validators=[DataRequired()])
     submit = SubmitField("sign up")
+
+class BoardForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    description = StringField('Description')
+    submit = SubmitField("Create")

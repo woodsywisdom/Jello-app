@@ -88,8 +88,8 @@ export const clearErrors = () => {
 }
 
 export const logout = () => async dispatch => {
-    const res = await fetch('/api/session', {
-        method: "delete",
+    const res = await fetch('/api/session/logout', {
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
@@ -122,7 +122,7 @@ export default function authReducer(state = { user: { id: null } }, action) {
             console.log(newState)
             return newState;
         case REMOVE_USER:
-            return {};
+            return { user: { id: null } };
         case CLEAR_ERRORS:
             newState.errors = {}
             return newState

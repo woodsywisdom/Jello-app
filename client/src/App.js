@@ -33,21 +33,24 @@ function App() {
 
   const currentUser = useSelector(state => state.auth.user);
 
-  if (loading){
-    return <p>loading</p>
-  }
+  // useEffect(() => {
 
+  // }, [dispatch, userID])
+  if (loading) {
+    return <p>loading...</p>
+  }
   return (
     <>
         <CssBaseline/>
         <BrowserRouter>
             { currentUser.id ? <Navbar/> : <LoginNavbar /> }
             <Switch>
-                <AuthRoute exact path='/' component={Home} currentUserId={currentUser.id}/>
+                <ProtectedRoute exact path='/users/:userid/boards' component={Boards} currentUserId={currentUser.id}/>
                 <AuthRoute exact path='/signup' component={SignupPage} currentUserId={currentUser.id}/>
                 <AuthRoute exact path='/login' component={LoginPage} currentUserId={currentUser.id}/>
                 <ProtectedRoute exact path='/users/:userid/boards/:boardid' component={BoardPage} currentUserId={currentUser.id}/>
                 <ProtectedRoute exact path='/users/:userid/boards' component={Boards} currentUserId={currentUser.id}/>
+                <AuthRoute exact path='/' component={Home} currentUserId={currentUser.id}/>
             </Switch>
         </BrowserRouter>
     </>

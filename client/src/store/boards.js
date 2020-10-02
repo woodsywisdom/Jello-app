@@ -4,6 +4,7 @@ import {setUserCards} from './cards'
 
 const SET_USER_BOARDS = '/entities/boards/SET_USER_BOARDS'
 const CREATE_BOARD = '/entities/boards/CREATE_BOARD'
+const UPDATE_BOARD = '/entities/boards/UPDATE_BOARD'
 // const DELETE_USER_BOARD = 'entities/boards/DELETE_BOARD'
 
 export const addBoard = (board) => {
@@ -17,6 +18,13 @@ export const setUserBoards = (boards) => {
     return {
         type: SET_USER_BOARDS,
         boards
+    }
+}
+
+export const updateBoard=(board)=>{
+    return{
+        type: UPDATE_BOARD,
+        board
     }
 }
 
@@ -36,9 +44,10 @@ export const createBoard = (title, userId) => async dispatch => {
     })
     debugger
     res.data = await res.json()
-    console.log(res.data)
-    dispatch(addBoard(res.data['board']))
-    return res
+    if (res.data['board']) {
+        dispatch(addBoard(res.data['board']))
+        return res
+    }
 }
 
 
@@ -65,6 +74,12 @@ export default function boards(state={userBoards:{}},action){
         case CREATE_BOARD:
             newState.userBoards = userBoards;
             newState.userBoards[action.board.id] = action.board
+            return newState
+        case UPDATE_BOARD:
+            newState.userBoards = userBoards;
+            const boardToUpdate = Object.assign({},state.userBoards[action.board.id])
+            boardToUpdate.lists = action.board.lists
+            newState.userBoards[action.board.id] = boardToUpdate
             return newState
         // case DELETE_USER_BOARD:
         //     newState.userBoards = userBoards
