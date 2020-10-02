@@ -108,14 +108,18 @@ function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const res = await dispatch(login(username, password));
-        console.log(res.errors);
+        if (!username || !password) {
+            await dispatch(registerErrors({"1":"Must enter username and password"}));
+        } else {
+            const res = await dispatch(login(username, password));
+            // console.log(res.errors);
 
-        if (res.errors){
-            await dispatch(registerErrors({"1":"incorrect username or password!"}));
-        }
-        else{
-            document.location.reload();
+            if (res.errors){
+                await dispatch(registerErrors({"1":"Incorrect username or password!"}));
+            }
+            else{
+                document.location.reload();
+            }
         }
     }
 

@@ -38,10 +38,12 @@ const Boards = () => {
       return {
         position: 'absolute',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        width: 300,
+        width: 380,
         backgroundColor: "rgba(0, 121, 191, 0)",
+        outline: 'none',
+        height: '150px',
     }},
 
     root: {
@@ -76,7 +78,8 @@ const Boards = () => {
       alignItems: "center",
       justifyContent: "center",
       '&:hover': {
-        backgroundColor: 'rgba(9, 30, 66, .2)'
+        backgroundColor: 'rgba(9, 30, 66, .2)',
+        cursor: 'pointer'
       }
     },
 
@@ -98,7 +101,8 @@ const Boards = () => {
       color: 'white',
       fontWeight: '700',
       '&:hover': {
-        backgroundColor: 'rgb(0, 71, 141)'
+        backgroundColor: 'rgb(0, 71, 141)',
+        cursor: 'pointer'
       }
     },
 
@@ -112,7 +116,7 @@ const Boards = () => {
       flexDirection: 'column',
       justifyContent: 'space-between',
       width: '100%',
-      height: '120px'
+      height: '120px',
     },
 
     modalInput: {
@@ -155,6 +159,10 @@ const Boards = () => {
         fontFamily: '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif',
         padding: '6px'
       }
+    },
+
+    templates: {
+      paddingTop: '3px'
     }
 
   }));
@@ -236,14 +244,63 @@ const Boards = () => {
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                   >
-                    <div style={modalStyle} className={classes.paper}>
-                      <form className={classes.modalForm}>
-                        <div className={classes.inputContainer}>
-                          <InputBase autoFocus className={classes.modalInput} classes={{ focused: classes.modalInputFocused}} placeholder="Add Board Title" name="title" value={title} onChange={handleBoard} />
-                        </div>
-                        <button className={classes.formButton} onClick={handleSubmit}>Create Board</button>
-                      </form>
-                    </div>
+                    <Grid style={modalStyle} className={classes.paper}>
+                      <Grid item xs={8}>
+                        <form className={classes.modalForm}>
+                            <div className={classes.inputContainer}>
+                              <InputBase autoFocus className={classes.modalInput} classes={{ focused: classes.modalInputFocused}} placeholder="Add Board Title" name="title" value={title} onChange={handleBoard} />
+                            </div>
+                            <button className={classes.formButton} onClick={handleSubmit}>Create Board</button>
+                        </form>
+                      </Grid>
+                        <Grid container item xs={4} className={classes.templates} spacing={1}>
+                          <Grid item xs={4}>
+                            <Card>
+                              blue
+                            </Card>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <Card>
+                              green
+                            </Card>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <Card>
+                              red
+                            </Card>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <Card>
+                              orange
+                            </Card>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <Card>
+                              yellow
+                            </Card>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <Card>
+                              purple
+                            </Card>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <Card>
+                              black
+                            </Card>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <Card>
+                              pink
+                            </Card>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <Card>
+                              picture
+                            </Card>
+                          </Grid>
+                        </Grid>
+                    </Grid>
                   </Modal>
                 </Grid>
               </Grid>
