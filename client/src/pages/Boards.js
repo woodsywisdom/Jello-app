@@ -173,6 +173,7 @@ const Boards = () => {
     console.log(title, userId)
     debugger
     dispatch(createBoard(title, userId))
+    setTitle("");
     handleClose()
   };
 
