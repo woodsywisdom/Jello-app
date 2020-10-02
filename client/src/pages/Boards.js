@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Container, IconButton, Icon, Link, Button, Card } from '@material-ui/core';
+import { Grid, Paper, Container, IconButton, Icon, Link, Button, Card, InputBase } from '@material-ui/core';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
@@ -22,100 +22,143 @@ function getModalStyle() {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-
-  paper: {
-    position: 'absolute',
-    display: 'flex',
-    alignItems: 'center',
-
-    width: 400,
-    backgroundColor: "rgb(0, 121, 191)",
-    padding: theme.spacing(2, 4, 3),
-  },
-
-  root: {
-    display: "flex",
-    justifyContent: 'center',
-    padding: theme.spacing(4),
-  },
-
-  h3: {
-    color: "#172b4d",
-    margin: "0",
-  },
-
-  p: {
-    textAlign: 'center',
-  },
-
-  ul: {
-    listStyle: 'none',
-    marginRight: "20px",
-  },
-
-  buttons: {
-    fontSize: ".9em",
-  },
-
-  Createboard: {
-    display: "flex",
-    height: "80px",
-    borderRadius: "3px",
-    backgroundColor: "rgba(9,30,66,.04)",
-    alignItems: "center",
-    justifyContent: "center",
-    '&:hover': {
-      backgroundColor: 'rgba(9, 30, 66, .2)'
-    }
-  },
-
-  title: {
-    display: "flex",
-    height: "0",
-    marginTop: '20px',
-    marginBottom: '20px',
-  },
-
-  board: {
-    display: "flex",
-    // marginRight: "4px",
-    // marginBottom: '4px',
-    height: "80px",
-    borderRadius: "3px",
-    backgroundColor: "rgb(0, 121, 191)",
-    alignItems: "center",
-    justifyContent: "center",
-    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif",
-    color: 'white',
-    fontWeight: '700',
-    '&:hover': {
-      backgroundColor: 'rgb(0, 71, 141)'
-    }
-  },
-
-  boardsContainer: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-
-  modalForm: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%'
-  }
-
-}));
 
 const Boards = () => {
-  const classes = useStyles();
+
   const dispatch = useDispatch()
   const user = useSelector(state => state.auth.user);
   const [title, setTitle] = useState("");
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
   const userId = user.id;
+
+  const useStyles = makeStyles((theme) => ({
+    paper: () => {
+      return {
+        position: 'absolute',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        width: 300,
+        backgroundColor: "rgba(0, 121, 191, 0)",
+    }},
+
+    root: {
+      display: "flex",
+      justifyContent: 'center',
+      padding: theme.spacing(4),
+    },
+
+    h3: {
+      color: "#172b4d",
+      margin: "0",
+    },
+
+    p: {
+      textAlign: 'center',
+    },
+
+    ul: {
+      listStyle: 'none',
+      marginRight: "20px",
+    },
+
+    buttons: {
+      fontSize: ".9em",
+    },
+
+    Createboard: {
+      display: "flex",
+      height: "80px",
+      borderRadius: "3px",
+      backgroundColor: "rgba(9,30,66,.04)",
+      alignItems: "center",
+      justifyContent: "center",
+      '&:hover': {
+        backgroundColor: 'rgba(9, 30, 66, .2)'
+      }
+    },
+
+    title: {
+      display: "flex",
+      height: "0",
+      marginTop: '20px',
+      marginBottom: '20px',
+    },
+
+    board: {
+      display: "flex",
+      height: "80px",
+      borderRadius: "3px",
+      backgroundColor: "rgb(0, 121, 191)",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif",
+      color: 'white',
+      fontWeight: '700',
+      '&:hover': {
+        backgroundColor: 'rgb(0, 71, 141)'
+      }
+    },
+
+    boardsContainer: {
+      display: 'flex',
+      flexDirection: 'column'
+    },
+
+    modalForm: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      width: '100%',
+      height: '120px'
+    },
+
+    modalInput: {
+      borderRadius: '5px',
+      borderBottom: 'none',
+      '&:hover': {
+        backgroundColor: 'rgba(150, 150, 150, .4)'
+      },
+      fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif",
+      color: 'white',
+      fontWeight: '700',
+      paddingLeft: '5px'
+    },
+
+    modalInputFocused: {
+      backgroundColor: 'rgba(255, 255, 255, .45)',
+      border: 'none',
+      fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif",
+      color: 'white',
+      fontWeight: '700',
+      paddingLeft: '5px'
+    },
+
+    inputContainer: {
+      borderRadius: '3px',
+      backgroundColor: "rgba(0, 121, 191, 1)",
+      height: '80px',
+      width: '240px',
+      padding: '10px',
+
+    },
+
+    formButton: () => {
+      return {
+        borderRadius: '3px',
+        width: 'fit-content',
+        border: 'none',
+        backgroundColor: title ? 'green' : 'lightgrey',
+        color: title ? 'white' : 'grey',
+        fontFamily: '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif',
+        padding: '6px'
+      }
+    }
+
+  }));
+
+  const classes = useStyles();
 
   const handleOpen = () => {
     setOpen(true);
@@ -130,22 +173,13 @@ const Boards = () => {
     console.log(title, userId)
     debugger
     dispatch(createBoard(title, userId))
+    handleClose()
   };
 
   const handleBoard = (e) => {
     setTitle(e.target.value)
   }
 
-  // const body = (
-
-  //     <div style={modalStyle} className={classes.paper}>
-  //       <form>
-  //         <TextField placeholder="Add Board Title" name="title" value={title} onChange={handleBoard}/>
-  //         <button onClick={handleSubmit} type='submit'>Create Board</button>
-  //       </form>
-  //     </div>
-
-  // );
 
   useEffect(() => {
     dispatch(loadUserBoards(user.id))
@@ -200,8 +234,10 @@ const Boards = () => {
                   >
                     <div style={modalStyle} className={classes.paper}>
                       <form className={classes.modalForm}>
-                        <TextField placeholder="Add Board Title" name="title" value={title} onChange={handleBoard} />
-                        <button onClick={handleSubmit}>Create Board</button>
+                        <div className={classes.inputContainer}>
+                          <InputBase autoFocus className={classes.modalInput} classes={{ focused: classes.modalInputFocused}} placeholder="Add Board Title" name="title" value={title} onChange={handleBoard} />
+                        </div>
+                        <button className={classes.formButton} onClick={handleSubmit}>Create Board</button>
                       </form>
                     </div>
                   </Modal>
