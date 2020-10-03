@@ -3,12 +3,20 @@ import { Box, Container, Typography, Card, CardMedia, CardActionArea } from '@ma
 import { makeStyles } from '@material-ui/core/styles';
 import LoginNavbar from '../components/LoginNavbar';
 import Habits_Book_Trello from '../images/Habits_Book_Trello.png';
+import little_people_moving from '../images/little_people_moving.jpg'
+import pngtree_business_discussion from '../images/pngtree_business_discussion.jpg'
+import team_work from '../images/team_work.jpg'
 
 const useStyles = makeStyles({
     blueBox: {
+        display: 'flex',
         color: 'white',
         backgroundColor: "#0079bf",
-        height: '100vh',
+        height: 'fit-content',
+        minWidth: 'fit-content',
+        paddingBottom: '3rem',
+        paddingTop: '3rem',
+        alignItems: 'center'
     },
     outerContainer: {
         display: 'flex',
@@ -22,6 +30,10 @@ const useStyles = makeStyles({
     pText: {
         fontSize: '20px',
         marginTop: '10px',
+    },
+    media1: {
+        width: '50%',
+        borderRadius: '10px'
     },
     container2: {
         display: 'flex',
@@ -116,12 +128,15 @@ function Home() {
         <>
             <Box className={classes.outerContainer}>
                 <Container className={classes.blueBox}>
-                    <Typography variant='h1'>
-                        Trello helps teams work more collaboratively and get more done.
-                    </Typography>
-                    <Typography variant='h2'>
-                        Trello’s boards, lists, and cards enable teams to organize and prioritize projects in a fun, flexible, and rewarding way.
-                    </Typography>
+                    <div>
+                        <Typography variant='h3'>
+                            Trello helps teams work more collaboratively and get more done.
+                        </Typography>
+                        <p className={classes.pText}>
+                            Trello’s boards, lists, and cards enable teams to organize and prioritize projects in a fun, flexible, and rewarding way.
+                        </p>
+                    </div>
+                    <img src={little_people_moving} className={classes.media1} />
                 </Container>
 
                 <Container className={classes.container2}>
