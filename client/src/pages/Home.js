@@ -5,7 +5,8 @@ import LoginNavbar from '../components/LoginNavbar';
 import Habits_Book_Trello from '../images/Habits_Book_Trello.png';
 import little_people_moving from '../images/little_people_moving.jpg'
 import pngtree_business_discussion from '../images/pngtree_business_discussion.jpg'
-import team_work from '../images/team_work.jpg'
+import hiclipart_working from '../images/hiclipart_working.png'
+import hiclipart from '../images/hiclipart.png'
 
 const useStyles = makeStyles({
     blueBox: {
@@ -119,6 +120,23 @@ const useStyles = makeStyles({
         border: '5px double white',
         borderRadius: '35%',
         padding: '20px 40px'
+    },
+    container4: {
+        display: 'flex',
+        alignItems: 'center',
+        maxWidth: '100%',
+        paddingTop: '48px',
+        paddingBottom: '48px',
+        background: 'linear-gradient(to bottom, #fff 0%, #f7ecff 46%, #d2ecff 74%, #fff 100%)',
+    },
+    media3: {
+        width: '33%',
+        maxWidth: '33%'
+    },
+    container4Div: {
+        textAlign: 'center',
+        width: '33%',
+        maxWidth: '33%',
     }
 });
 
@@ -198,12 +216,17 @@ function Home() {
 
                 </Container>
 
-                <Container>
-                    <Typography variant='h2'>
-                        This is a test of the container layout
-                    </Typography>
-
-
+                <Container className={classes.container4}>
+                    <img src={hiclipart_working} className={classes.media3} />
+                    <div className={classes.container4Div}>
+                        <Typography variant='h4' style={{fontWeight: '600'}}>
+                            Start Planning Today
+                        </Typography>
+                        <p className={classes.pText}>
+                            Sign up and join over 1,000,000 teams worldwide who are using Trello to get more done.
+                        </p>
+                    </div>
+                    <img src={hiclipart} className={classes.media3} style={{maxHeight: '50vh'}} />
                 </Container>
             </Box>
         </>
@@ -211,5 +234,3 @@ function Home() {
 
 }
 export default Home;
-
-// linear-gradient(to bottom, #fff 0%, #f7ecff 46%, #d2ecff 74%, #fff 100%)
