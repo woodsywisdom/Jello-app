@@ -42,12 +42,71 @@ const useStyles = makeStyles({
     },
     container3: {
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
         maxWidth: '90%',
         marginTop: '48px',
         borderRadius: '10px',
         background: 'linear-gradient(180deg, #42548e 0%, #6b668c 100%)',
-        height: '70vh'
+        height: '70vh',
+        color: 'white',
+        height: 'fit-content',
+        minWidth: 'fit-content',
+        padding: '1.1em'
+    },
+    companiesContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center',
+        alignItems: 'center'
+    },
+    companies1: {
+        display: 'flex',
+        justifyContent: 'center',
+        // paddingTop: '15px',
+        width: 'fit-content%'
+    },
+    companies2: {
+        display: 'flex',
+        justifyContent: 'center',
+        // paddingTop: '15px',
+        width: '100%'
+    },
+    company1: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: '5',
+        fontSize: "40px",
+        // padding: '10px',
+        width: '25%',
+        textAlign: 'center',
+        minWidth: 'fit-content'
+    },
+    jelcoWholesale: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        fontSize: '40px',
+        width: '25%',
+        fontStyle: 'italic'
+    },
+    company2: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: "center",
+        flexShrink: '0',
+        fontSize: "40px",
+        width: '33%',
+        textAlign: 'center',
+        minWidth: 'fit-content'
+    },
+    fakeButton: {
+        fontSize: '20px',
+        border: '5px double white',
+        borderRadius: '35%',
+        padding: '20px 40px'
     }
 });
 
@@ -78,9 +137,47 @@ function Home() {
                 </Container>
 
                 <Container className={classes.container3}>
-                    <Typography variant='h2'>
-                        This is a test of the container layout
+                    <Typography variant='h4' className={classes.textHeader}>
+                        Work smarter with Jello
                     </Typography>
+                    <p className={classes.pText}>
+                        Companies of all shapes and sizes use Jello.
+                    </p>
+                    <Container className={classes.companiesContainer}>
+                        <Container className={classes.companies1}>
+                            <p className={classes.company1} >
+                                Jell-oogle
+                            </p>
+                            <p className={classes.company1} style={{fontFamily: 'Brush Script MT'}}>
+                                Jellnder
+                            </p>
+                            <p className={classes.company1} style={{fontSize: '30px', fontFamily: 'Lucida Console'}}>
+                                JELLOSPACE
+                            </p>
+                            <div className={classes.jelcoWholesale}>
+                                <p style={{fontFamily: 'Franklin Gothic Medium', marginBottom: '0'}}>
+                                    JELLCO
+                                </p>
+                                <p style={{fontSize: '.4em', marginTop: '-1em'}}>
+                                    WHOLESALE
+                                </p>
+                            </div>
+                        </Container>
+                        <Container className={classes.companies2}>
+                            <p className={classes.company2} style={{fontFamily: 'Impact'}}>
+                                JELLORUSH
+                            </p>
+                            <p className={classes.company2} style={{fontFamily: 'Lucida Handwriting'}}>
+                                Jintrest
+                            </p>
+                            <p className={classes.company2} style={{fontFamily: 'Consolas'}}>
+                                JELLOTON
+                            </p>
+                        </Container>
+                    </Container>
+                    <p className={classes.fakeButton}>
+                        We can show you how
+                    </p>
                 </Container>
                 <Container>
 
