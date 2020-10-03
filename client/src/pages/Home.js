@@ -16,10 +16,16 @@ const useStyles = makeStyles({
         fontFamily: "Charlie Text,sans-serif",
     },
     textHeader: {
-        fontWeight: '500'
+        fontWeight: '600',
+        fontFamily: "Charlie Text,sans-serif",
+    },
+    pText: {
+        fontSize: '20px',
+        marginTop: '10px',
     },
     container2: {
         display: 'flex',
+        alignItems: 'center',
         maxWidth: '90%',
         paddingTop: '48px',
     },
@@ -33,6 +39,15 @@ const useStyles = makeStyles({
         paddingLeft: '30px',
         marginLeft: '0',
         marginRight: '0',
+    },
+    container3: {
+        display: 'flex',
+        alignItems: 'center',
+        maxWidth: '90%',
+        marginTop: '48px',
+        borderRadius: '10px',
+        background: 'linear-gradient(180deg, #42548e 0%, #6b668c 100%)',
+        height: '70vh'
     }
 });
 
@@ -49,19 +64,20 @@ function Home() {
                         Trello’s boards, lists, and cards enable teams to organize and prioritize projects in a fun, flexible, and rewarding way.
                     </Typography>
                 </Container>
+
                 <Container className={classes.container2}>
                     <img src={Habits_Book_Trello} className={classes.media2} />
                     <Container className={classes.innerTextContainer2}>
                         <Typography variant='h4' className={classes.textHeader}>
                             Information at a glance
                         </Typography>
-                        <Typography variant='h6'>
+                        <p className={classes.pText}>
                             Dive into the details by adding comments, attachments, due dates, and more directly to Trello cards. Collaborate on projects from beginning to end.
-                        </Typography>
+                        </p>
                     </Container>
                 </Container>
-                <Container>
 
+                <Container className={classes.container3}>
                     <Typography variant='h2'>
                         This is a test of the container layout
                     </Typography>
@@ -69,6 +85,7 @@ function Home() {
                 <Container>
 
                 </Container>
+
                 <Container>
                     <Typography variant='h2'>
                         This is a test of the container layout
