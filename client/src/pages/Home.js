@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     blueBox: {
         display: 'flex',
         color: 'white',
-        backgroundColor: "#0079bf",
+        background: 'linear-gradient(135deg, #0079bf, #5067c5)',
         height: 'fit-content',
         minWidth: 'fit-content',
         paddingBottom: '3rem',
@@ -211,3 +211,5 @@ function Home() {
 
 }
 export default Home;
+
+// linear-gradient(to bottom, #fff 0%, #f7ecff 46%, #d2ecff 74%, #fff 100%)
