@@ -1,14 +1,13 @@
 import React from 'react';
-import { Box, Container, Typography, Card, CardMedia, CardActionArea } from '@material-ui/core';
+import { Box, Container, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginNavbar from '../components/LoginNavbar';
 import Habits_Book_Trello from '../images/Habits_Book_Trello.png';
 import little_people_moving from '../images/little_people_moving.jpg'
-import pngtree_business_discussion from '../images/pngtree_business_discussion.jpg'
 import hiclipart_working from '../images/hiclipart_working.png'
 import hiclipart from '../images/hiclipart.png'
 
-const useStyles = makeStyles({
+const useMediaStyles = makeStyles((theme) => ({
     blueBox: {
         display: 'flex',
         color: 'white',
@@ -17,12 +16,43 @@ const useStyles = makeStyles({
         minWidth: 'fit-content',
         paddingBottom: '3rem',
         paddingTop: '3rem',
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.down(700)]: {
+            display: 'flex',
+            flexDirection: 'column',
+        }
     },
+    companies1: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        // paddingTop: '15px',
+        width: 'fit-content%',
+        [theme.breakpoints.down(700)]: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        },
+    },
+    companies2: {
+        display: 'flex',
+        justifyContent: 'center',
+        // paddingTop: '15px',
+        width: '100%',
+        [theme.breakpoints.down(700)]: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          },
+    },
+}));
+
+const useStyles = makeStyles({
     outerContainer: {
         display: 'flex',
         flexDirection: 'column',
         fontFamily: "Charlie Text,sans-serif",
+        backgroundColor: 'white'
     },
     textHeader: {
         fontWeight: '600',
@@ -41,6 +71,7 @@ const useStyles = makeStyles({
         alignItems: 'center',
         maxWidth: '90%',
         paddingTop: '48px',
+        backgroundColor: 'white'
     },
     media2: {
         maxWidth: '40%',
@@ -52,6 +83,12 @@ const useStyles = makeStyles({
         paddingLeft: '30px',
         marginLeft: '0',
         marginRight: '0',
+    },
+    companiesContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center',
+        alignItems: 'center'
     },
     container3: {
         display: 'flex',
@@ -66,25 +103,7 @@ const useStyles = makeStyles({
         color: 'white',
         height: 'fit-content',
         minWidth: 'fit-content',
-        padding: '1.1em'
-    },
-    companiesContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignContent: 'center',
-        alignItems: 'center'
-    },
-    companies1: {
-        display: 'flex',
-        justifyContent: 'center',
-        // paddingTop: '15px',
-        width: 'fit-content%'
-    },
-    companies2: {
-        display: 'flex',
-        justifyContent: 'center',
-        // paddingTop: '15px',
-        width: '100%'
+        padding: '1.1em',
     },
     company1: {
         display: 'flex',
@@ -127,11 +146,14 @@ const useStyles = makeStyles({
         maxWidth: '100%',
         paddingTop: '48px',
         paddingBottom: '48px',
-        background: 'linear-gradient(to bottom, #fff 0%, #f7ecff 46%, #d2ecff 74%, #fff 100%)',
     },
     media3: {
         width: '33%',
         maxWidth: '33%'
+    },
+    media4: {
+        width: '30%',
+        marginLeft: '3%'
     },
     container4Div: {
         textAlign: 'center',
@@ -142,16 +164,17 @@ const useStyles = makeStyles({
 
 function Home() {
     const classes = useStyles();
+    const mediaClasses = useMediaStyles();
     return (
         <>
             <Box className={classes.outerContainer}>
-                <Container className={classes.blueBox}>
+                <Container className={mediaClasses.blueBox}>
                     <div>
                         <Typography variant='h3'>
-                            Trello helps teams work more collaboratively and get more done.
+                            Jello helps teams work more collaboratively and get more done.
                         </Typography>
                         <p className={classes.pText}>
-                            Trello’s boards, lists, and cards enable teams to organize and prioritize projects in a fun, flexible, and rewarding way.
+                            Jello’s boards, lists, and cards enable teams to organize and prioritize projects in a fun, flexible, and rewarding way.
                         </p>
                     </div>
                     <img src={little_people_moving} className={classes.media1} />
@@ -164,69 +187,72 @@ function Home() {
                             Information at a glance
                         </Typography>
                         <p className={classes.pText}>
-                            Dive into the details by adding comments, attachments, due dates, and more directly to Trello cards. Collaborate on projects from beginning to end.
+                            Dive into the details by adding comments, attachments, due dates, and more directly to Jello cards. Collaborate on projects from beginning to end.
                         </p>
                     </Container>
                 </Container>
 
-                <Container className={classes.container3}>
-                    <Typography variant='h4' className={classes.textHeader}>
-                        Work smarter with Jello
-                    </Typography>
-                    <p className={classes.pText}>
-                        Companies of all shapes and sizes use Jello.
-                    </p>
-                    <Container className={classes.companiesContainer}>
-                        <Container className={classes.companies1}>
-                            <p className={classes.company1} >
-                                Jell-oogle
-                            </p>
-                            <p className={classes.company1} style={{fontFamily: 'Brush Script MT'}}>
-                                Jellnder
-                            </p>
-                            <p className={classes.company1} style={{fontSize: '30px', fontFamily: 'Lucida Console'}}>
-                                JELLOSPACE
-                            </p>
-                            <div className={classes.jelcoWholesale}>
-                                <p style={{fontFamily: 'Franklin Gothic Medium', marginBottom: '0'}}>
-                                    JELLCO
-                                </p>
-                                <p style={{fontSize: '.4em', marginTop: '-1em'}}>
-                                    WHOLESALE
-                                </p>
-                            </div>
-                        </Container>
-                        <Container className={classes.companies2}>
-                            <p className={classes.company2} style={{fontFamily: 'Impact'}}>
-                                JELLORUSH
-                            </p>
-                            <p className={classes.company2} style={{fontFamily: 'Lucida Handwriting'}}>
-                                Jintrest
-                            </p>
-                            <p className={classes.company2} style={{fontFamily: 'Consolas'}}>
-                                JELLOTON
-                            </p>
-                        </Container>
-                    </Container>
-                    <p className={classes.fakeButton}>
-                        We can show you how
-                    </p>
-                </Container>
-                <Container>
-
-                </Container>
-
-                <Container className={classes.container4}>
-                    <img src={hiclipart_working} className={classes.media3} />
-                    <div className={classes.container4Div}>
-                        <Typography variant='h4' style={{fontWeight: '600'}}>
-                            Start Planning Today
+                <Container style={{ background: 'linear-gradient(to bottom, #fff 0%, #f7ecff 46%, #d2ecff 74%, #fff 100%)'}}>
+                    <Container className={classes.container3}>
+                        <Typography variant='h4' className={classes.textHeader}>
+                            Work smarter with Jello
                         </Typography>
                         <p className={classes.pText}>
-                            Sign up and join over 1,000,000 teams worldwide who are using Trello to get more done.
+                            Companies of all shapes and sizes use Jello.
                         </p>
-                    </div>
-                    <img src={hiclipart} className={classes.media3} style={{maxHeight: '50vh'}} />
+                        <Container className={classes.companiesContainer}>
+                            <Container className={mediaClasses.companies1}>
+                                <p className={classes.company1} >
+                                    Jell-oogle
+                                </p>
+                                <p className={classes.company1} style={{fontFamily: 'Brush Script MT'}}>
+                                    Jellnder
+                                </p>
+                                <p className={classes.company1} style={{fontSize: '30px', fontFamily: 'Lucida Console'}}>
+                                    JELLOSPACE
+                                </p>
+                                <div className={classes.jelcoWholesale}>
+                                    <p style={{fontFamily: 'Franklin Gothic Medium', marginBottom: '0'}}>
+                                        JELLCO
+                                    </p>
+                                    <p style={{fontSize: '.4em', marginTop: '-1em'}}>
+                                        WHOLESALE
+                                    </p>
+                                </div>
+                            </Container>
+                            <Container className={mediaClasses.companies2}>
+                                <p className={classes.company2} style={{fontFamily: 'Impact'}}>
+                                    JELLORUSH
+                                </p>
+                                <p className={classes.company2} style={{fontFamily: 'Lucida Handwriting'}}>
+                                    Jintrest
+                                </p>
+                                <p className={classes.company2} style={{fontFamily: 'Consolas'}}>
+                                    JELLOTON
+                                </p>
+                            </Container>
+                        </Container>
+                        <p className={classes.fakeButton}>
+                            We can show you how
+                        </p>
+                    </Container>
+                    <Container>
+
+                    </Container>
+
+                    <Container className={classes.container4}>
+                        <img src={hiclipart_working} className={classes.media3} />
+                        <div className={classes.container4Div}>
+                            <Typography variant='h4' style={{fontWeight: '600'}}>
+                                Start Planning Today
+                            </Typography>
+                            <p className={classes.pText}>
+                                Sign up and join over 1,000,000 teams worldwide who are using Jello to get more done.
+                            </p>
+                        </div>
+                        <img src={hiclipart} className={classes.media4} style={{maxHeight: '50vh'}} />
+                    </Container>
+
                 </Container>
             </Box>
         </>
