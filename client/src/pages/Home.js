@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import LoginNavbar from '../components/LoginNavbar';
 
 const useStyles = makeStyles({
     blueBox: {

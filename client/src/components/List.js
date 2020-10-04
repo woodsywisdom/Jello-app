@@ -1,26 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import '../styles/List.css'
-import  {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
+import  { Droppable, Draggable} from 'react-beautiful-dnd';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Container, IconButton, Icon, Link, Button } from '@material-ui/core';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
-import ShowChartIcon from '@material-ui/icons/ShowChart';
-import AddIcon from '@material-ui/icons/Add';
+import { IconButton, Button } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
-import BoardContext from '../pages/BoardContext';
-import Card from '../components/Card'
-import ControlPointIcon from '@material-ui/icons/ControlPoint';
-import SubjectIcon from '@material-ui/icons/Subject';
+import { useSelector } from 'react-redux';
 import LibraryAddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-import AddCardForm from '../components/AddCardForm'
 import CloseIcon from '@material-ui/icons/Close';
-import { createNewCard, setUserCards, addCard } from '../store/cards';
-import Cookies from 'js-cookie'
 import ListContext from '../pages/ListContext'
 
 const useStyles = makeStyles(( theme ) => ({
@@ -37,10 +24,10 @@ const useStyles = makeStyles(( theme ) => ({
 }));
 
 const cardStyle = {
-    userSelect: "none", 
+    userSelect: "none",
     margin:"0 0 8px 0",
-    padding:"4px", 
-    minHeight: "35px", 
+    padding:"4px",
+    minHeight: "35px",
     borderRadius: "4px",
     backgroundColor: "white",
     color: "black",
@@ -48,19 +35,19 @@ const cardStyle = {
     alignContent: "center"
     ,
   };
-  
+
   const addCardStyle = {
-    userSelect: "none", 
+    userSelect: "none",
     margin:"0 0 8px 0",
-    padding:"4px", 
-    minHeight: "20px", 
+    padding:"4px",
+    minHeight: "20px",
     borderRadius: "4px",
     backgroundColor: "white",
     color: "black",
     alignItems: "center"
     ,
   };
-  
+
   const ColorButton = withStyles((theme) => ({
     root: {
         color: "white",
@@ -76,13 +63,13 @@ const cardStyle = {
 const List = ({list,id}) => {
     const context = useContext(ListContext)
     const cards = useSelector(state=> state.entities.lists.userLists[id].cards)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const [lists,setLists] = useState({})
     const [hoveredCardId,setHoveredCardId] = useState(null)
-    const [addCardList,setAddCardList] = useState()
-    const [listCards,setListCards] = useState(list.cards)
-    const [newCardTitle,setNewCardTitle] = useState("")
-    const [newCard, setNewCard] = useState(true)
+    const [addCardList, setAddCardList] = useState()
+    // const [listCards,setListCards] = useState(list.cards)
+    // const [newCardTitle,setNewCardTitle] = useState("")
+    // const [newCard, setNewCard] = useState(true)
     const classes = useStyles();
 
     const handleNewCardTitleInput=(e,id)=>{
@@ -106,10 +93,10 @@ const List = ({list,id}) => {
                                     ...cardStyle,
                                     ...provided.draggableProps.style
                                 }}>
-                                    <div 
-                                    onMouseEnter={(e)=>addHover(e,card.id)} 
-                                    onMouseLeave={(e)=>removeHover(e)} cardid={card.id} 
-                                    style={{display:"flex", 
+                                    <div
+                                    onMouseEnter={(e)=>addHover(e,card.id)}
+                                    onMouseLeave={(e)=>removeHover(e)} cardid={card.id}
+                                    style={{display:"flex",
                                     justifyContent:"space-between", flexDirection:"row", alignItems:"center", alignContent:"center"}}>
                                       <div style={{alignSelf:"center", fontSize:"15px"}}>{card.title}</div>
                                       <div>
@@ -127,15 +114,16 @@ const List = ({list,id}) => {
                               }}
                             </Draggable> )
     }
-    
+
     useEffect(()=>{
-        const cardIds = Object.values(cards).map(card=>card.id)
-        const listIds = list.cards.map(card=>card.id)
-        const newId = cardIds.filter(id=> !listIds.includes(id))
-        console.log("newId wut wut wuuut",newId)
-        const newCard = cards[newId]
-        console.log("newCardwutwut",newCard)
-    },[cards])
+      setLists(cards);
+        // const cardIds = Object.values(cards).map(card=>card.id)
+        // const listIds = list.cards.map(card=>card.id)
+        // const newId = cardIds.filter(id=> !listIds.includes(id))
+        // console.log("newId wut wut wuuut",newId)
+        // const newCard = cards[newId]
+        // console.log("newCardwutwut",newCard)
+    }, [cards])
 
     const addHover=(e,cardId)=>{
         setHoveredCardId(cardId)
@@ -148,29 +136,23 @@ const List = ({list,id}) => {
         e.preventDefault()
         context.makeNewCard()
       }
-    
+
       const selectAddCardList=(e,id)=>{
           context.setAddCardList(id)
           console.log(context.addCardList)
       }
-    
-      const createCard=()=>{
-        console.log(addCardList)
-        console.log(newCardTitle)
-        context.setAddCardList(addCardList)
-        context.setNewCardTitle(newCardTitle)
-      }
+
     return (
         <Droppable droppableId={`${id}`} key={id}>
                   {(provided, snapshot)=>{
                     return(
                       <div style={{display:"flex",flexDirection:"column"}}>
                       <div style={{
-                        marginLeft:"8px", 
+                        marginLeft:"8px",
                         marginRight: "8px",
                         marginBottom:0,
                         marginTop:"10px",
-                        fontSize:"16px", 
+                        fontSize:"16px",
                         borderTopLeftRadius: "5px",
                         borderTopRightRadius: "5px",
                         width:272,
@@ -183,7 +165,7 @@ const List = ({list,id}) => {
                       {...provided.draggableProps}
                       ref={provided.innerRef}
                       style={{
-                        marginLeft:"8px", 
+                        marginLeft:"8px",
                         marginRight: "8px",
                         marginTop: 0,
                         alignItems:"center",
@@ -201,11 +183,11 @@ const List = ({list,id}) => {
                         {provided.placeholder}
                       </div>
                       <div style={{
-                        marginLeft:"8px", 
+                        marginLeft:"8px",
                         marginRight: "8px",
                         marginBottom:0,
                         marginTop:0,
-                        fontSize:"16px", 
+                        fontSize:"16px",
                         borderBottomLeftRadius: "5px",
                         borderBottomRightRadius: "5px",
                         width:272,
@@ -213,14 +195,13 @@ const List = ({list,id}) => {
                         paddingTop: "4px",
                         background: '#ebecf0',
                         fontWeight:"500"
-                        }}> 
+                        }}>
                         <form action="/api/lists/add-card" method="POST">
                             <div style={{display: context.addCardList === id ?  "flex" : "none", flexDirection:"column"}}>
                               <div>
                                 <div style={{...addCardStyle}}>
                                   <InputBase className={classes.input}
-                                    placeholder="Search Google Maps"
-                                    inputProps={{ 'aria-label': '' }}style={{outline: "none", textDecoration: "none", width:"100%"}} placeholder="Enter a title for this card..." type="text" value={context.newCardTitle} onChange={(e)=>handleNewCardTitleInput(e,id)}/>
+                                    inputProps={{ 'aria-label': '' }} style={{outline: "none", textDecoration: "none", width:"100%"}} placeholder="Enter a title for this card..." type="text" value={context.newCardTitle} onChange={(e)=>handleNewCardTitleInput(e,id)}/>
                                 </div>
                                 <div style={{display:"flex",justifyContent:"space-between",flexDirection:"row",alignItems:"center"}}>
                                   <div>
@@ -239,8 +220,8 @@ const List = ({list,id}) => {
                             </div>
                             </form>
                             <Button onClick={(e)=>selectAddCardList(e,id)}
-                            style={{display: addCardList === id ? "none" : "flex"}} 
-                            startIcon={<LibraryAddIcon />} 
+                            style={{display: addCardList === id ? "none" : "flex"}}
+                            startIcon={<LibraryAddIcon />}
                             fullWidth >add card</Button>
 
                           </div>

@@ -1,11 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BoardContext from './BoardContext'
 import Board from './Board'
-import {createNewCard} from '../store/cards'
 import { useParams } from 'react-router-dom';
-import {moveCard} from '../store/lists'
-import { updateBoard } from '../store/boards';
 // import { updateBoard, updateList } from '../store/boards'
 
 const BoardPage=()=>{

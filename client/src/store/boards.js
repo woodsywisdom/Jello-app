@@ -31,9 +31,9 @@ export const updateBoard=(board)=>{
     }
 }
 
-export const createBoard = (title, userId) => async dispatch => {
+export const createBoard = (title, userId, color) => async dispatch => {
     if (!title || !userId) return;
-    const test = JSON.stringify({title, userId})
+    const test = JSON.stringify({title, userId, color})
     const csrfToken = Cookies.get("XSRF-TOKEN")
     const res = await fetch(`/api/boards/create`,{
         method: 'POST',
@@ -91,7 +91,7 @@ export default function boards(state={userBoards:{}},action){
             boardUpdate.lists[action.listId] = listToUpdate
             listToUpdate.cards = cardListToUpdate
             newState.userBoards[action.boardId].lists[action.listId].cards = action.cards
-
+            return newState
         // case DELETE_USER_BOARD:
         //     newState.userBoards = userBoards
         //     delete newState.userBoards[action.boardId]

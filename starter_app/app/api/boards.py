@@ -7,6 +7,7 @@ boards = Blueprint('boards', __name__)
 @boards.route("/<user_id>")
 def user_boards(user_id):
     boards = db.session.query(Board).filter(Board.user_id == user_id)
+    print(boards)
 
     format_boards = {"boards":{},"lists":{},"cards":{}}
     for board in boards:
@@ -23,6 +24,7 @@ def create_board():
     data['description']= " "
     new_board = Board(
         title=data['title'],
+        color=data['color'],
         description=data['description'],
         user_id=data['userId']
     )

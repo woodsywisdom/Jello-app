@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import {useState} from 'react'
 import {login, registerErrors, clearErrors} from '../store/auth'
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, NavLink } from 'react-router-dom';
-import {fade,ThemeProvider,withStyles,makeStyles,createMuiTheme} from '@material-ui/core/styles';
+import { NavLink } from 'react-router-dom';
+import {withStyles,makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button'
 import '../styles/LoginForm.css'
-import Cookies from 'js-cookie'
+
 
 const useStylesLoginTextField = makeStyles((theme) => ({
     root: {
@@ -22,7 +22,6 @@ const useStylesLoginTextField = makeStyles((theme) => ({
       borderRadius: 4,
       backgroundColor: '#fcfcfb',
       transition: theme.transitions.create(['border-color', 'box-shadow']),
-      transition: "background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s",
       '&$focused': {
         border: '2px solid rgb(94, 158, 214)',
         backgroundColor: '#fff',
@@ -91,7 +90,7 @@ const ColorButton = withStyles((theme) => ({
 function LoginPage() {
     const classes = useStyles()
     const dispatch = useDispatch()
-    const currentUser = useSelector(state => state.auth.user)
+    // const currentUser = useSelector(state => state.auth.user)
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
     const [errors,setErrors] = useState("")
@@ -99,7 +98,7 @@ function LoginPage() {
 
     useEffect(()=>{
         dispatch(clearErrors())
-    },[])
+    },[dispatch])
 
     useEffect(()=>{
         if (authErrors) setErrors(Object.values(authErrors))

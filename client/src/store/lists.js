@@ -49,7 +49,7 @@ export const moveCard = (boardId,addToId,cardId,removeFromId) => async dispatch 
     const data = await response.json();
     console.log("look foo: ",data)
     dispatch(updateBoard(data["board"]))
-    dispatch(updateCardsOnList(data["addToListId"],data["addToCardObject"],data["removeFromListId",data["removeFromCardObject"]]))
+    dispatch(updateCardsOnList(data["addToListId"],data["addToCardObject"],data["removeFromListId"],data["removeFromCardObject"]))
     dispatch(updateListOnCard(data["card"]))
 }
 
@@ -94,7 +94,7 @@ export default function lists(state={},action){
             newState.userLists[action.listId] = listWithNewCards
             newState.userLists[action.removeListId] = listRemoveCards
             return newState
-        default: 
+        default:
             return state;
     }
 }

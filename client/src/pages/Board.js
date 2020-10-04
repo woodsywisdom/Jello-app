@@ -1,41 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Container, IconButton, Icon, Link, Button } from '@material-ui/core';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
-import ShowChartIcon from '@material-ui/icons/ShowChart';
-import AddIcon from '@material-ui/icons/Add';
-import InputBase from '@material-ui/core/InputBase';
+// import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 import {moveCard} from '../store/lists'
 import { useDispatch, useSelector } from 'react-redux';
-import  {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
-import { useLocation, useParams } from 'react-router-dom';
+import  {DragDropContext } from 'react-beautiful-dnd';
 import BoardContext from './BoardContext';
-import Card from '../components/Card'
-import ControlPointIcon from '@material-ui/icons/ControlPoint';
-import SubjectIcon from '@material-ui/icons/Subject';
 import LibraryAddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import AddCardForm from '../components/AddCardForm'
-import CloseIcon from '@material-ui/icons/Close';
-import { createNewCard, setUserCards, addCard } from '../store/cards';
-import Cookies from 'js-cookie'
+import { createNewCard } from '../store/cards';
 import List from '../components/List';
 import ListContext from './ListContext'
 
-const useStyles = makeStyles(( theme ) => ({
+// const useStyles = makeStyles(( theme ) => ({
 
-    root: {
-        backgroundColor: "rgb(0, 121, 191)",
-        height: '100vh',
-    },
-    input: {
-      marginLeft: theme.spacing(1),
-      flex: 1,
-    },
+//     root: {
+//         backgroundColor: "rgb(0, 121, 191)",
+//         height: '100vh',
+//     },
+//     input: {
+//       marginLeft: theme.spacing(1),
+//       flex: 1,
+//     },
 
-}));
+// }));
 
 const onDragEnd = (result, lists, setLists,updateLists,boardId) => {
   if (!result.destination) return;
@@ -74,42 +60,42 @@ const onDragEnd = (result, lists, setLists,updateLists,boardId) => {
   })}
 }
 
-const cardStyle = {
-  userSelect: "none", 
-  margin:"0 0 8px 0",
-  padding:"4px", 
-  minHeight: "35px", 
-  borderRadius: "4px",
-  backgroundColor: "white",
-  color: "black",
-  alignItems: "center",
-  alignContent: "center"
-  ,
-};
+// const cardStyle = {
+//   userSelect: "none",
+//   margin:"0 0 8px 0",
+//   padding:"4px",
+//   minHeight: "35px",
+//   borderRadius: "4px",
+//   backgroundColor: "white",
+//   color: "black",
+//   alignItems: "center",
+//   alignContent: "center"
+//   ,
+// };
 
-const addCardStyle = {
-  userSelect: "none", 
-  margin:"0 0 8px 0",
-  padding:"4px", 
-  minHeight: "20px", 
-  borderRadius: "4px",
-  backgroundColor: "white",
-  color: "black",
-  alignItems: "center"
-  ,
-};
+// const addCardStyle = {
+//   userSelect: "none",
+//   margin:"0 0 8px 0",
+//   padding:"4px",
+//   minHeight: "20px",
+//   borderRadius: "4px",
+//   backgroundColor: "white",
+//   color: "black",
+//   alignItems: "center"
+//   ,
+// };
 
-const ColorButton = withStyles((theme) => ({
-  root: {
-      color: "white",
-      paddingRight: "10px",
-      paddingLeft: "10px",
-      backgroundColor:"grey",
-      '&:hover': {
-          backgroundColor: "#2196f3 !important",
-      },
-  },
-}))(Button);
+// const ColorButton = withStyles((theme) => ({
+//   root: {
+//       color: "white",
+//       paddingRight: "10px",
+//       paddingLeft: "10px",
+//       backgroundColor:"grey",
+//       '&:hover': {
+//           backgroundColor: "#2196f3 !important",
+//       },
+//   },
+// }))(Button);
 
 const Board = (props) => {
   const context = useContext(BoardContext)
@@ -130,9 +116,9 @@ const Board = (props) => {
   const [lists,setLists] = useState({})
   const [addCardList,setAddCardList] = useState(-1)
   const [newCardTitle,setNewCardTitle] = useState("")
-  const [newCard, setNewCard] = useState(true)
+  // const [newCard, setNewCard] = useState(true)
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
 
   useEffect(()=>{
@@ -141,7 +127,7 @@ const Board = (props) => {
       console.log("woops!")
       console.log(boardLists)
     }
-  },[dispatch])
+  },[dispatch, boardLists])
 
   const makeNewCard=()=>{
     dispatch(createNewCard({title:newCardTitle,board_id:boardId,description:"",list_id:addCardList},boardId))
@@ -161,7 +147,7 @@ const Board = (props) => {
           </DragDropContext>
           <div style={{
                         margin:"10px",
-                        fontSize:"16px", 
+                        fontSize:"16px",
                         borderTopLeftRadius: "5px",
                         borderTopRightRadius: "5px",
                         borderBottomLeftRadius: "5px",

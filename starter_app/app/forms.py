@@ -19,5 +19,6 @@ class SignUpForm(FlaskForm):
 
 class BoardForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
+    color = StringField("Color", validators=[DataRequired()])
     description = StringField('Description')
     submit = SubmitField("Create")
