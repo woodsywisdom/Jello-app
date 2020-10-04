@@ -13,18 +13,34 @@ const BoardPage=()=>{
     const params = useParams()
     const boardId = Number(params.boardid)
     const [loading,setLoading] = useState(true)
+    const [listsOnBoard,setListsOnBoard] =useState({})
 
     let userBoard = useSelector(state => state.entities.boards.userBoards[boardId])
+    let userLists = useSelector(state=> state.entities.lists.userLists)
     useEffect(()=>{
-      if(userBoard){
+      if(userBoard && userLists){
+        const boardLists = {}
+        Object.values(userLists).forEach((list)=>{
+        if (list.board_id === boardId){
+          boardLists[list.id] = list
+        }
+      })
+        setListsOnBoard(boardLists)
         setLoading(false)
+        console.log(boardLists)
       }
-    },[dispatch,userBoard])
+    },[dispatch,userBoard,userLists])
+
     if (loading) return "loading"
     return(
+      <div style={{display:"flex",flexDirection:"column"}}>
+        <div style={{display:"flex", flexDirection:"row"}}></div>
+        <div style={{display:"flex", flexDirection:"row", overflow:"scroll"}}>
         <BoardContext.Provider value={{boardId}}>
-            <Board/>
+            <Board boardLists={listsOnBoard}/>
         </BoardContext.Provider>
+        </div>
+      </div>
     )
 }
 

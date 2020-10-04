@@ -21,25 +21,25 @@ export const updateListOnCard = (card) => {
     }
 }
 
-export const createNewCard = (newCard,boardId) => async dispatch => {
-    const jsonCard = JSON.stringify({...newCard,boardId})
-    console.log("WOWOWOWOWOWOWO")
-    const csrfToken = Cookies.get("XSRF-TOKEN");
-    const response = await fetch(`/api/lists/add-card`, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-TOKEN": csrfToken,
-        },
-    body: jsonCard
-    })
-    const data = await response.json();
-    console.log("this is the new card!!: ",data)
-    //TODO: TECHNICALLY WE DONT NEED THIS CALL TO UPDATE BOARD
-    dispatch(updateBoard(data['board']))
-    dispatch(updateCardsOnList(data['listId'],data['cardObject']))
-    dispatch(addCard(data['card']))
-}
+// export const createNewCard = (newCard,boardId) => async dispatch => {
+//     const jsonCard = JSON.stringify({...newCard,boardId})
+//     console.log("WOWOWOWOWOWOWO")
+//     const csrfToken = Cookies.get("XSRF-TOKEN");
+//     const response = await fetch(`/api/lists/add-card`, {
+//     method: "POST",
+//     headers: {
+//         "Content-Type": "application/json",
+//         "X-CSRF-TOKEN": csrfToken,
+//         },
+//     body: jsonCard
+//     })
+//     const data = await response.json();
+//     console.log("this is the new card!!: ",data)
+//     //TODO: TECHNICALLY WE DONT NEED THIS CALL TO UPDATE BOARD
+//     dispatch(updateBoard(data['board']))
+//     dispatch(updateCardsOnList(data['listId'],data['cardObject']))
+//     dispatch(addCard(data['card']))
+// }
 
 
 export const addCard = (card) => {
