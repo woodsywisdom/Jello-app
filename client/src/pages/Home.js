@@ -236,9 +236,6 @@ function Home() {
                             We can show you how
                         </p>
                     </Container>
-                    <Container>
-
-                    </Container>
 
                     <Container className={classes.container4}>
                         <img src={hiclipart_working} className={classes.media3} />
