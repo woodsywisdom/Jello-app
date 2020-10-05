@@ -94,7 +94,7 @@ export default function lists(state={},action){
             newState.userLists[action.listId] = listWithNewCards
             newState.userLists[action.removeListId] = listRemoveCards
             return newState
-        default: 
+        default:
             return state;
     }
 }

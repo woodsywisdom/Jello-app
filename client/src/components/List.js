@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import '../styles/List.css'
-import  {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
+import  { Droppable, Draggable} from 'react-beautiful-dnd';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Container, IconButton, Icon, Link, Button, TextField } from '@material-ui/core';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -10,14 +10,9 @@ import ShowChartIcon from '@material-ui/icons/ShowChart';
 import AddIcon from '@material-ui/icons/Add';
 import InputBase from '@material-ui/core/InputBase';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
-import BoardContext from '../pages/BoardContext';
-import Card from '../components/Card'
-import ControlPointIcon from '@material-ui/icons/ControlPoint';
-import SubjectIcon from '@material-ui/icons/Subject';
 import LibraryAddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-import AddCardForm from '../components/AddCardForm'
+import SubjectIcon from '@material-ui/icons/Subject'
 import CloseIcon from '@material-ui/icons/Close';
 import { createNewCard, setUserCards, addCard } from '../store/cards';
 import Cookies, { set } from 'js-cookie'
@@ -76,10 +71,10 @@ const modalDescriptionStyle = {
 }
 
 const cardStyle = {
-    userSelect: "none", 
+    userSelect: "none",
     margin:"0 0 8px 0",
-    padding:"4px", 
-    minHeight: "35px", 
+    padding:"4px",
+    minHeight: "35px",
     borderRadius: "4px",
     backgroundColor: "white",
     color: "black",
@@ -88,16 +83,16 @@ const cardStyle = {
   }
   
   const addCardStyle = {
-    userSelect: "none", 
+    userSelect: "none",
     margin:"0 0 8px 0",
-    padding:"4px", 
-    minHeight: "20px", 
+    padding:"4px",
+    minHeight: "20px",
     borderRadius: "4px",
     backgroundColor: "white",
     color: "black",
     alignItems: "center"
   };
-  
+
   const ColorButton = withStyles((theme) => ({
     root: {
         color: "white",
@@ -261,18 +256,12 @@ const List = ({list,id,cards}) => {
         setNewCard(!newCard)
         context.makeNewCard()
       }
-    
+
       const selectAddCardList=(e,id)=>{
           context.setAddCardList(id)
           console.log(context.addCardList)
       }
-    
-      const createCard=()=>{
-        console.log(addCardList)
-        console.log(newCardTitle)
-        context.setAddCardList(addCardList)
-        context.setNewCardTitle(newCardTitle)
-      }
+
     return (
         <>
         <Droppable droppableId={`${id}`} key={id}>
@@ -280,7 +269,7 @@ const List = ({list,id,cards}) => {
                     return(
                       <div style={{display:"flex",flexDirection:"column"}}>
                       <div style={{
-                        marginLeft:"8px", 
+                        marginLeft:"8px",
                         marginRight: "8px",
                         marginBottom:0,
                         marginTop:0,
@@ -297,7 +286,7 @@ const List = ({list,id,cards}) => {
                       {...provided.draggableProps}
                       ref={provided.innerRef}
                       style={{
-                        marginLeft:"8px", 
+                        marginLeft:"8px",
                         marginRight: "8px",
                         marginTop: 0,
                         alignItems:"center",
@@ -319,10 +308,9 @@ const List = ({list,id,cards}) => {
                         </div>
                       </div>
                       <div style={{
-                        marginLeft:"8px", 
+                        marginLeft:"8px",
                         marginRight: "8px",
                         marginTop:0,
-                        marginBottom:"114px",
                         fontSize:"16px", 
                         borderBottomLeftRadius: "5px",
                         borderBottomRightRadius: "5px",
@@ -331,7 +319,7 @@ const List = ({list,id,cards}) => {
                         paddingTop: "4px",
                         background: '#ebecf0',
                         fontWeight:"500"
-                        }}> 
+                        }}>
                         <form action="/api/lists/add-card" method="POST">
                             <div style={{display: context.addCardList === id ?  "flex" : "none", flexDirection:"column"}}>
                               <div>
@@ -356,8 +344,8 @@ const List = ({list,id,cards}) => {
                             </div>
                             </form>
                             <Button onClick={(e)=>selectAddCardList(e,id)}
-                            style={{display: addCardList === id ? "none" : "flex"}} 
-                            startIcon={<LibraryAddIcon />} 
+                            style={{display: addCardList === id ? "none" : "flex"}}
+                            startIcon={<LibraryAddIcon />}
                             fullWidth >add card</Button>
                           </div>
                       </div>

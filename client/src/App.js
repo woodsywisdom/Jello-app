@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import {setUser} from './store/auth'
 import SignupPage from './pages/SignupPage';
@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar';
 import LoginNavbar from './components/LoginNavbar';
 import Boards from './pages/Boards';
-import Board from './pages/Board';
 import BoardPage from './pages/BoardPage'
 import { AuthRoute, ProtectedRoute } from './components/utils/Routes';
 import {loadUserBoards} from './store/boards'

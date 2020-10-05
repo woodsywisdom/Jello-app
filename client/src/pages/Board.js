@@ -9,12 +9,8 @@ import AddIcon from '@material-ui/icons/Add';
 import InputBase from '@material-ui/core/InputBase';
 import {moveCard, updateCardsOnList, createNewList} from '../store/lists'
 import { useDispatch, useSelector } from 'react-redux';
-import  {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
-import { useLocation, useParams } from 'react-router-dom';
+import  {DragDropContext } from 'react-beautiful-dnd';
 import BoardContext from './BoardContext';
-import Card from '../components/Card'
-import ControlPointIcon from '@material-ui/icons/ControlPoint';
-import SubjectIcon from '@material-ui/icons/Subject';
 import LibraryAddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCardForm from '../components/AddCardForm'
@@ -94,10 +90,10 @@ const cardStyle = {
 };
 
 const addCardStyle = {
-  userSelect: "none", 
+  userSelect: "none",
   margin:"0 0 8px 0",
-  padding:"4px", 
-  minHeight: "20px", 
+  padding:"4px",
+  minHeight: "20px",
   borderRadius: "4px",
   backgroundColor: "white",
   color: "black",
@@ -212,7 +208,7 @@ const Board = ({boardLists}) => {
                         borderBottomLeftRadius: "5px",
                         borderBottomRightRadius: "5px",
                         width:272,
-                        marginBottom:"10px",
+                        marginBottom:"670px",
                         background: 'transparent',
                         fontWeight:"500"
                         }}> 

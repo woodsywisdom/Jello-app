@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { AppBar, Toolbar, Box, IconButton, InputBase, InputAdornment, Avatar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Box, IconButton, Avatar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AppsIcon from '@material-ui/icons/Apps';
 import HomeIcon from '@material-ui/icons/Home';
@@ -73,11 +73,11 @@ const Navbar = () => {
   }
 
   const homeClick = (e) => {
-    return <Redirect to="/"/>
+    return <Redirect to="/" />
   }
 
   const boardsClick = (e) => {
-    return <Redirect to="/"/>
+    return <Redirect to="/" />
   }
 
   const addClick = (e) => {
@@ -92,8 +92,8 @@ const Navbar = () => {
     return
   }
 
-  const menuLogout = e => {
-    const loggedOut = dispatch(logout());
+  const menuLogout = () => {
+    dispatch(logout());
   }
 
   return (
