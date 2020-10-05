@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import { AppBar, Toolbar, Box, IconButton, Avatar, Typography } from '@material-ui/core';
+import { NavLink, Redirect } from 'react-router-dom';
+import { AppBar, Toolbar, Box, IconButton, Avatar, Typography, Modal, List, ListItem, ListItemText, Menu } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AppsIcon from '@material-ui/icons/Apps';
 import HomeIcon from '@material-ui/icons/Home';
@@ -57,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     padding: "0px 8px",
   },
+  centerLink: {
+    textDecoration: "none",
+  },
 }));
 
 
@@ -67,6 +70,7 @@ const Navbar = () => {
   const currentUser = useSelector(state => state.auth.user);
   let firstInitial = currentUser.username ?
     currentUser.username[0].toUpperCase() : null;
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const appsClick = (e) => {
     return
@@ -92,6 +96,16 @@ const Navbar = () => {
     return
   }
 
+  const profileClick = (e) => {
+    e.preventDefault();
+    setAnchorEl(e.target);
+  }
+
+  const handleClose = (e) => {
+    e.preventDefault();
+    setAnchorEl(null);
+  }
+
   const menuLogout = () => {
     dispatch(logout());
   }
@@ -108,22 +122,45 @@ const Navbar = () => {
               <Typography className={classes.boardsText}>Boards</Typography>
             </IconButton>
           </Box>
-          <Link to="/">
+          <NavLink to="/" className={classes.centerLink}>
             <Box className={classes.logoBox} display="flex" alignItems="center" >
               <TableChartOutlinedIcon className={classes.icon} />
               <Typography className={classes.logo}>Jello</Typography>
             </Box>
-          </Link>
+          </NavLink>
           <Box>
             <IconButton className={classes.button} onClick={addClick}><AddIcon /></IconButton>
             <IconButton className={classes.button} onClick={infoClick}><InfoIcon /></IconButton>
             <IconButton className={classes.button} onClick={notificationsClick}><NotificationsIcon /></IconButton>
-            <IconButton className={classes.avatarButton} onClick={menuLogout}>
+            <IconButton className={classes.avatarButton} onClick={profileClick}>
               <Avatar className={classes.avatar}>{firstInitial}</Avatar>
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
+      <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={!!anchorEl}
+        onClose={handleClose}
+        className={classes.profileMenu}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        getContentAnchorEl={null}
+        style={{ cursor: "pointer" }}
+      >
+        <List>
+          <ListItem onClick={menuLogout}>
+            <ListItemText primary="Log Out" />
+          </ListItem>
+        </List>
+      </Menu>
     </>
   )
 }
