@@ -1,20 +1,17 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
+// import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import SubjectIcon from '@material-ui/icons/Subject';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     maxWidth: 345,
+//   },
+// });
 
 const cardStyle = {
-    display:"flex", 
-    flexDirection:"column", 
+    display:"flex",
+    flexDirection:"column",
     padding: "16px",
     fontFamily:"sans-serif",
     ':hover': {
@@ -23,7 +20,7 @@ const cardStyle = {
   };
 
 export default function MediaCard(props) {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <div style={cardStyle}>

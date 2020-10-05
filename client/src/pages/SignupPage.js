@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import {useState} from 'react'
 import {signup, registerErrors, clearErrors} from '../store/auth'
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, NavLink } from 'react-router-dom';
-import {fade,ThemeProvider,withStyles,makeStyles,createMuiTheme} from '@material-ui/core/styles';
+import { NavLink } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider';
@@ -23,7 +21,6 @@ const useStylesSignUpTextField = makeStyles((theme) => ({
     borderRadius: 4,
     backgroundColor: '#fcfcfb',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
-    transition: "background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s",
     '&$focused': {
       border: '2px solid rgb(94, 158, 214)',
       backgroundColor: '#fff',
@@ -82,7 +79,7 @@ const useStyles = makeStyles({
 function SignupPage() {
   const classes = useStyles()
   const dispatch = useDispatch()
-  
+
   const [username,setUsername] = useState("")
   const [password,setPassword] = useState("")
   const [confirmPassword,setConfirmPassword] = useState("")
@@ -93,19 +90,19 @@ function SignupPage() {
 
   useEffect(()=>{
     dispatch(clearErrors())
-  },[])
+  },[dispatch])
 
   useEffect(()=>{
     const validateUser= async ()=>{
         const username = userToCreate.username
         const email = userToCreate.email
         const password = userToCreate.password
-        const data = await dispatch(signup(username,email,password))
+        await dispatch(signup(username,email,password))
     }
     if (userToCreate !== {}){
         validateUser()
     }
-  },[userToCreate])
+  },[userToCreate, dispatch])
 
   useEffect(()=>{
     if (authErrors) setErrors(Object.values(authErrors))
@@ -129,7 +126,7 @@ const handleSubmit = (e) => {
       setUserToCreate({username,email,password})
     }
 }
-  
+
   const handleUsernameInput = (e) => {
       setUsername(e.target.value)
   }
@@ -141,13 +138,13 @@ const handleSubmit = (e) => {
   const handlePasswordInput = (e) => {
     setPassword(e.target.value)
   }
-  
+
   const handleConfirmPasswordInput = (e) => {
       setConfirmPassword(e.target.value)
   }
 
   return (
-    <> 
+    <>
       <div id="main-content-sign-up">
         <div style={{width:"100%", display:"flex", justifyContent: "center"}}>
           <div style={{width:"100%", color: "#2196f3", display:"flex", justifyContent: "center", textDecoration: "none", fontFamily: "Brush Script MT", justifySelf: "center", fontSize: "80px"}}>Jello</div>
@@ -168,7 +165,7 @@ const handleSubmit = (e) => {
           <Button size="small" classes={{ root: classes.Button }} type="submit">Sign Up and Log In</Button>
         </form>
         <Divider style={{width: "100%", margin: "24px"}}/>
-        <NavLink id='login-navlink' to="/login"><p id="signUpText">Already have an account?  Log In</p></NavLink> 
+        <NavLink id='login-navlink' to="/login"><p id="signUpText">Already have an account?  Log In</p></NavLink>
       </Container>
       </div>
     </>

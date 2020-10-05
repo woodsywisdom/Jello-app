@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Container, IconButton, Icon, Link, Button, Card, InputBase } from '@material-ui/core';
+import { Grid, Container, Button, Card, InputBase } from '@material-ui/core';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
@@ -9,8 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { loadUserBoards, createBoard } from '../store/boards'
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
-import TextField from '@material-ui/core/TextField';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function getModalStyle() {
   const top = 15
@@ -29,6 +28,7 @@ const Boards = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.auth.user);
   const [title, setTitle] = useState("");
+  const [dynamicColor, setDynamicColor] = useState("rgb(0, 121, 191)");
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
   const userId = user.id;
@@ -44,7 +44,98 @@ const Boards = () => {
         backgroundColor: "rgba(0, 121, 191, 0)",
         outline: 'none',
         height: '150px',
-    }},
+      }
+    },
+
+    blue: {
+      height: "15px",
+      width: "15px",
+      backgroundColor: "rgb(0, 121, 191)",
+      marginBottom: "4px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    },
+
+    green: {
+      height: "15px",
+      width: "15px",
+      backgroundColor: "green",
+      marginBottom: "4px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    },
+
+    red: {
+      height: "15px",
+      width: "15px",
+      backgroundColor: "red",
+      marginBottom: "4px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    },
+
+    orange: {
+      height: "15px",
+      width: "15px",
+      backgroundColor: "orange",
+      marginBottom: "4px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    },
+
+    tan: {
+      height: "15px",
+      width: "15px",
+      backgroundColor: "tan",
+      marginBottom: "4px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    },
+
+    purple: {
+      height: "15px",
+      width: "15px",
+      backgroundColor: "purple",
+      marginBottom: "4px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    },
+
+    black: {
+      height: "15px",
+      width: "15px",
+      backgroundColor: "black",
+      marginBottom: "4px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    },
+
+    pink: {
+      height: "15px",
+      width: "15px",
+      backgroundColor: "pink",
+      marginBottom: "4px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    },
+
+    grey: {
+      height: "15px",
+      width: "15px",
+      backgroundColor: "grey",
+      marginBottom: "4px",
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    },
 
     root: {
       display: "flex",
@@ -142,7 +233,6 @@ const Boards = () => {
 
     inputContainer: {
       borderRadius: '3px',
-      backgroundColor: "rgba(0, 121, 191, 1)",
       height: '80px',
       width: '240px',
       padding: '10px',
@@ -175,13 +265,14 @@ const Boards = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setDynamicColor("rgb(0, 121, 191)")
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(title, userId)
+    console.log(title, userId, dynamicColor)
     debugger
-    dispatch(createBoard(title, userId))
+    dispatch(createBoard(title, userId, dynamicColor))
     setTitle("");
     handleClose()
   };
@@ -190,10 +281,9 @@ const Boards = () => {
     setTitle(e.target.value)
   }
 
-
   useEffect(() => {
     dispatch(loadUserBoards(user.id))
-  }, [dispatch])
+  }, [dispatch, user.id])
 
   const boards = useSelector(state => state.entities.boards.userBoards);
 
@@ -222,12 +312,12 @@ const Boards = () => {
               <h3 className={classes.h3}>Personal Boards</h3>
             </Grid>
             <Grid item xs={12}>
-              <Grid container  spacing={2}>
+              <Grid container spacing={2}>
                 {Object.values(boards).map(object => {
                   return (
                     <Grid key={object.id} item xs={3}>
-                      <NavLink style={{textDecoration:"none"}} to={`boards/${object.id}`}>
-                        <Card className={classes.board}>
+                      <NavLink style={{ textDecoration: "none" }} to={`boards/${object.id}`}>
+                        <Card className={classes.board} style={{ backgroundColor: object.color }}>
                           <p>{object.title}</p>
                         </Card>
                       </NavLink>
@@ -247,59 +337,41 @@ const Boards = () => {
                     <Grid style={modalStyle} className={classes.paper}>
                       <Grid item xs={8}>
                         <form className={classes.modalForm}>
-                            <div className={classes.inputContainer}>
-                              <InputBase autoFocus className={classes.modalInput} classes={{ focused: classes.modalInputFocused}} placeholder="Add Board Title" name="title" value={title} onChange={handleBoard} />
-                            </div>
-                            <button className={classes.formButton} onClick={handleSubmit}>Create Board</button>
+                          <div style={{ backgroundColor: dynamicColor }} className={classes.inputContainer}>
+                            <InputBase autoFocus className={classes.modalInput} classes={{ focused: classes.modalInputFocused }} placeholder="Add Board Title" name="title" value={title} onChange={handleBoard} />
+                          </div>
+                          <button className={classes.formButton} onClick={handleSubmit}>Create Board</button>
                         </form>
                       </Grid>
-                        <Grid container item xs={4} className={classes.templates} spacing={1}>
-                          <Grid item xs={4}>
-                            <Card>
-                              blue
-                            </Card>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Card>
-                              green
-                            </Card>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Card>
-                              red
-                            </Card>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Card>
-                              orange
-                            </Card>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Card>
-                              yellow
-                            </Card>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Card>
-                              purple
-                            </Card>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Card>
-                              black
-                            </Card>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Card>
-                              pink
-                            </Card>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Card>
-                              picture
-                            </Card>
-                          </Grid>
+                      <Grid container item xs={2} className={classes.templates}>
+                        <Grid item xs={4}>
+                          <Card className={classes.blue} onClick={() => setDynamicColor("rgb(0, 121, 191)")} />
                         </Grid>
+                        <Grid item xs={4}>
+                          <Card className={classes.green} onClick={() => setDynamicColor("green")} />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Card className={classes.red} onClick={() => setDynamicColor("red")} />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Card className={classes.orange} onClick={() => setDynamicColor("orange")} />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Card className={classes.tan} onClick={() => setDynamicColor("tan")} />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Card className={classes.purple} onClick={() => setDynamicColor("purple")} />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Card className={classes.black} onClick={() => setDynamicColor("black")} />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Card className={classes.pink} onClick={() => setDynamicColor("pink")} />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Card className={classes.grey} onClick={() => setDynamicColor("grey")} />
+                        </Grid>
+                      </Grid>
                     </Grid>
                   </Modal>
                 </Grid>
