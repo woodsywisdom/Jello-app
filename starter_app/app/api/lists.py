@@ -26,6 +26,22 @@ def move_card():
         }
     return format_board
 
+@lists.route("/create",methods=["POST"])
+def create_list():
+    data = request.json
+    if not data:
+        return {"welcome":"welcome"}
+    ls = List(
+        title=data['title'],
+        description=data['description'],
+        board_id=data['board_id']
+    )
+    db.session.add(ls)
+    db.session.commit()
+    format_list = ls.to_dict()
+    listId = f"{ls.id}"
+    return {"list":format_list}
+
 
 @lists.route("/add-card",methods=["POST"])
 def add_card():
@@ -42,16 +58,3 @@ def add_card():
     format_res = {"listId":ls.id,"cardObject":ls.cards_object(),"board":board.to_dict(),"card":card.to_dict()}
     return format_res
     
-
-@lists.route("/create",methods=["POST"])
-def create_list():
-    data = request.json
-    new_list = List(
-        title=data['title'],
-        description=data['description'],
-        board_id=data['boardId']
-    )
-    db.session.add(new_list)
-    db.session.commit()
-    format_list = new_list.to_dict()
-    return format_list

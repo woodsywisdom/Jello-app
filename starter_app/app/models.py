@@ -10,6 +10,7 @@ class Board(db.Model):
 
   id = db.Column(db.Integer, primary_key = True)
   title = db.Column(db.String(40), nullable = False)
+  color = db.Column(db.String, nullable= False)
   description = db.Column(db.String(2000))
   user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
@@ -24,6 +25,7 @@ class Board(db.Model):
     return {
       "id": self.id,
       "title": self.title,
+      "color": self.color,
       "description": self.description,
       "user_id": self.user_id,
       "user": self.user.id,
