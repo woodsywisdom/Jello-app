@@ -13,7 +13,7 @@ import { logout } from '../store/auth';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
-    backgroundColor: "#0079bf"
+    backgroundColor: "#026aa7"
   },
   toolbar: {
     display: "flex",

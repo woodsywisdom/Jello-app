@@ -33,14 +33,19 @@ const BoardPage=()=>{
 
     if (loading) return "loading"
     return(
-      <div style={{display:"flex",flexDirection:"column"}}>
-        <div style={{display:"flex", flexDirection:"row"}}></div>
+      <>
+      <div style={{display:"flex", marginBottom: 0,flexDirection:"column", height:"100%", background: "rgb(0, 121, 191)"}}>
+        <div style={{display:"flex", flexDirection:"row", padding:"12px", fontWeight:"700", fontSize:"24px",color:"white"}}>
+          {userBoard.title}
+        </div>
         <div style={{display:"flex", flexDirection:"row", overflow:"scroll"}}>
         <BoardContext.Provider value={{boardId}}>
             <Board boardLists={listsOnBoard}/>
         </BoardContext.Provider>
         </div>
       </div>
+      
+      </>
     )
 }
 

@@ -29,7 +29,6 @@ const useStyles = makeStyles(( theme ) => ({
 
     root: {
         backgroundColor: "rgb(0, 121, 191)",
-        height: '100vh',
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -204,21 +203,21 @@ const Board = ({boardLists}) => {
           <div style={{
                         marginLeft:"8px", 
                         marginRight: "8px",
-                        marginTop:"10px",
-                        fontSize:"16px", 
+                        fontSize:"16px",
+                        display:"block",
+                        boxSizing: "inherit",
                         borderTopLeftRadius: "5px",
                         borderTopRightRadius: "5px",
                         fontSize:"16px", 
                         borderBottomLeftRadius: "5px",
                         borderBottomRightRadius: "5px",
                         width:272,
-                        padding: "9px",
-                        paddingTop: "4px",
-                        background: '#ebecf0',
+                        marginBottom:"10px",
+                        background: 'transparent',
                         fontWeight:"500"
                         }}> 
                         <form action="/api/lists/add-card" method="POST">
-                            <div style={{display: openNewList ?  "flex" : "none", flexDirection:"column"}}>
+                            <div style={{display: openNewList ?  "flex" : "none", padding: "9px",width:272, flexDirection:"column", background:"#ebecf0",borderTopLeftRadius: "5px", borderTopRightRadius: "5px", borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px",}}>
                               <div>
                                 <div style={{...addCardStyle}}>
                                   <InputBase className={classes.input}
@@ -242,7 +241,7 @@ const Board = ({boardLists}) => {
                             </div>
                             </form>
                             <Button onClick={(e)=>setOpenNewList(true)}
-                            style={{display: openNewList ? "none" : "flex"}} 
+                            style={{display: openNewList ? "none" : "flex",background:"#ebecf0"}} 
                             startIcon={<LibraryAddIcon />} 
                             fullWidth >add list</Button>
                           </div>

@@ -5,6 +5,46 @@ import { updateCardsOnList} from './lists'
 const SET_USER_CARDS = "/entities/cards/SET_USER_CARDS"
 const CREATE_CARD = "/entities/cards/CREATE_CARD"
 const UPDATE_LIST_ON_CARD = "/entities/cards/UPDATE_LIST_ON_CARD"
+const UPDATE_CARD_TITLE = "/entities/cards/UPDATE_CARD_TITLE"
+
+
+export const updateCardTitle = (card,title) => async dispatch => {
+    console.log("hello")
+    // const jsonCard = JSON.stringify({...newCard,boardId})
+    // console.log("WOWOWOWOWOWOWO")
+    // const csrfToken = Cookies.get("XSRF-TOKEN");
+    // const response = await fetch(`/api/lists/add-card`, {
+    // method: "POST",
+    // headers: {
+    //     "Content-Type": "application/json",
+    //     "X-CSRF-TOKEN": csrfToken,
+    //     },
+    // body: jsonCard
+    // })
+    // const data = await response.json();
+    // console.log("this is the new card!!: ",data)
+    // //TODO: TECHNICALLY WE DONT NEED THIS CALL TO UPDATE BOARD
+    // dispatch(updateBoard(data['board']))
+}
+
+export const updateCardDescription = (card,title) => async dispatch => {
+    console.log("hello")
+    // const jsonCard = JSON.stringify({...newCard,boardId})
+    // console.log("WOWOWOWOWOWOWO")
+    // const csrfToken = Cookies.get("XSRF-TOKEN");
+    // const response = await fetch(`/api/lists/add-card`, {
+    // method: "POST",
+    // headers: {
+    //     "Content-Type": "application/json",
+    //     "X-CSRF-TOKEN": csrfToken,
+    //     },
+    // body: jsonCard
+    // })
+    // const data = await response.json();
+    // console.log("this is the new card!!: ",data)
+    // //TODO: TECHNICALLY WE DONT NEED THIS CALL TO UPDATE BOARD
+    // dispatch(updateBoard(data['board']))
+}
 
 
 export const setUserCards = (cards) => {
