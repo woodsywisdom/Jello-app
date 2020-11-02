@@ -2,24 +2,19 @@ import React, { useContext, useEffect, useState } from 'react';
 import '../styles/List.css'
 import  { Droppable, Draggable} from 'react-beautiful-dnd';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Container, IconButton, Icon, Link, Button, TextField } from '@material-ui/core';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
-import ShowChartIcon from '@material-ui/icons/ShowChart';
-import AddIcon from '@material-ui/icons/Add';
+import { IconButton, Button, TextField } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import LibraryAddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import SubjectIcon from '@material-ui/icons/Subject'
 import CloseIcon from '@material-ui/icons/Close';
-import { createNewCard, setUserCards, addCard } from '../store/cards';
-import Cookies, { set } from 'js-cookie'
+import { addCard } from '../store/cards';
+import Cookies from 'js-cookie'
 import ListContext from '../pages/ListContext'
 import {updateBoard} from '../store/boards'
-import {updateListOnCard, updateCardTitle,updateCardDescription} from '../store/cards'
-import { updateCardsOnList,createNewList} from '../store/lists'
+import { updateCardTitle,updateCardDescription} from '../store/cards'
+import { updateCardsOnList } from '../store/lists'
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -58,13 +53,12 @@ const useStyles = makeStyles(( theme ) => ({
 const modalDescriptionStyle = {
     marginRight:"30px",
     marginBottom: "10px",
-    padding:"4px", 
+    padding:"4px",
     backgroundColor: "lightgrey",
     cursor: "pointer",
     color: "grey",
     display: "block",
     minHeight: "60px",
-    padding: "8px 5px",
     '&:hover': {
         backgroundColor: "blue",
     },
@@ -81,7 +75,7 @@ const cardStyle = {
     alignItems: "center",
     alignContent: "center",
   }
-  
+
   const addCardStyle = {
     userSelect: "none",
     margin:"0 0 8px 0",
@@ -122,15 +116,11 @@ const List = ({list,id,cards}) => {
     console.log("list prop ", list)
     console.log("list.cards: ",list.cards)
     const context = useContext(ListContext)
-    const cardsInStore = useSelector(state=> state.entities.lists.userLists[id].cards)
     const dispatch = useDispatch()
-    const [lists,setLists] = useState({})
     // const [hoveredCardId,setHoveredCardId] = useState(true)
     const [loadingNewCard, setLoadingNewCard] = useState(false)
     const [cardToCreate,setCardToCreate] = useState({})
     const [addCardList,setAddCardList] = useState()
-    const [listCards,setListCards] = useState(list.cards)
-    const [newCardTitle,setNewCardTitle] = useState("")
     const [newCard, setNewCard] = useState(true)
     const classes = useStyles();
     const [titleOpen, setTitleOpen] = useState(false);
@@ -174,7 +164,7 @@ const List = ({list,id,cards}) => {
         }
         console.log("card To Create!",cardToCreate)
         if (cardToCreate) createNewCard(cardToCreate,context.boardId)
-    },[newCard])
+    },[newCard, cardToCreate, dispatch, context.boardId, list.cards])
 
     const handleOpenModal=(index,cardId)=>{
         setEditCardDescription(list.cards[index].description)
@@ -220,9 +210,7 @@ const List = ({list,id,cards}) => {
                                     ...provided.draggableProps.style
                                 }}>
                                     <div
-                                    // onMouseEnter={(e)=>addHover(e,card.id)} 
-                                    // onMouseLeave={(e)=>removeHover(e)} cardid={card.id} 
-                                    style={{display:"flex", 
+                                    style={{display:"flex",
                                     justifyContent:"space-between", flexDirection:"row", alignItems:"center", alignContent:"center"}}>
                                       <div style={{alignSelf:"center", fontSize:"15px"}}>{list.cards[index].title}</div>
                                       <div>
@@ -236,18 +224,6 @@ const List = ({list,id,cards}) => {
                               }}
                             </Draggable> )
     }
-    
-    // useEffect(()=>{
-    //     console.log("from use effect!")
-    //     setCards(cards)
-    // },[listCards])
-
-    // const addHover=(e,cardId)=>{
-    //     setHoveredCardId(cardId)
-    //   }
-    //   const removeHover=(e)=>{
-    //     setHoveredCardId(null)
-    //   }
 
       const addACard = (e)=>{
         setLoadingNewCard(true)
@@ -273,7 +249,7 @@ const List = ({list,id,cards}) => {
                         marginRight: "8px",
                         marginBottom:0,
                         marginTop:0,
-                        fontSize:"16px", 
+                        fontSize:"16px",
                         borderTopLeftRadius: "5px",
                         borderTopRightRadius: "5px",
                         maxWidth:272,
@@ -311,7 +287,7 @@ const List = ({list,id,cards}) => {
                         marginLeft:"8px",
                         marginRight: "8px",
                         marginTop:0,
-                        fontSize:"16px", 
+                        fontSize:"16px",
                         borderBottomLeftRadius: "5px",
                         borderBottomRightRadius: "5px",
                         width:272,
@@ -390,7 +366,7 @@ const List = ({list,id,cards}) => {
                         Description:
                     </Typography>
                     </div>
-                    {editCard.description || showEditCardDescription ? 
+                    {editCard.description || showEditCardDescription ?
                     <div style={{width:"100%", padding:"4px"}}>
                         <TextField style={{margin:"4px",marginBottom:"8px", fontSize:"14px", textDecoration: "none"}}  variant="outlined" autoFocus={true} multiline rows={4} placeholder={"Enter a description"} fullWidth type="text" value={editCardDescription} onChange={(e)=>handleEditCardDescriptionInput(e,editCard.id)}/>
                     </div>

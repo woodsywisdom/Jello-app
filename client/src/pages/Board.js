@@ -1,21 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Container, IconButton, Icon, Link, Button } from '@material-ui/core';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
-import ShowChartIcon from '@material-ui/icons/ShowChart';
-import AddIcon from '@material-ui/icons/Add';
+import { IconButton, Button } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-import {moveCard, updateCardsOnList, createNewList} from '../store/lists'
-import { useDispatch, useSelector } from 'react-redux';
+import {moveCard } from '../store/lists'
+import { useDispatch } from 'react-redux';
 import  {DragDropContext } from 'react-beautiful-dnd';
 import BoardContext from './BoardContext';
 import LibraryAddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import AddCardForm from '../components/AddCardForm'
 import CloseIcon from '@material-ui/icons/Close';
-import { setUserCards, addCard } from '../store/cards';
 import Cookies from 'js-cookie'
 import List from '../components/List';
 import ListContext from './ListContext'
@@ -30,7 +22,7 @@ const useStyles = makeStyles(( theme ) => ({
       marginLeft: theme.spacing(1),
       flex: 1,
     },
-    
+
 
 }));
 
@@ -76,18 +68,6 @@ const onDragEnd = (result, lists, setLists,updateLists,boardId) => {
 }
 
 
-const cardStyle = {
-  userSelect: "none", 
-  margin:"0 0 8px 0",
-  padding:"4px", 
-  minHeight: "35px", 
-  borderRadius: "4px",
-  backgroundColor: "white",
-  color: "black",
-  alignItems: "center",
-  alignContent: "center"
-  ,
-};
 
 const addCardStyle = {
   userSelect: "none",
@@ -123,7 +103,6 @@ const Board = ({boardLists}) => {
   const [lists,setLists] = useState(boardLists)
   const [addCardList,setAddCardList] = useState(-1)
   const [newCardTitle,setNewCardTitle] = useState("")
-  const [newCard, setNewCard] = useState(true)
   const [creatingList,setCreatingList] = useState(false)
   const [listToCreate,setListToCreate] = useState({})
   const [openNewList,setOpenNewList] = useState(false)
@@ -155,7 +134,7 @@ const Board = ({boardLists}) => {
       setCreatingList(false)
     }
     if (creatingList) createNewList(listToCreate)
-  },[creatingList]
+  },[creatingList, boardLists, dispatch, listToCreate, lists]
   )
 
   const handleNewListTitleInput=(e)=>{
@@ -197,27 +176,25 @@ const Board = ({boardLists}) => {
             })}
           </DragDropContext>
           <div style={{
-                        marginLeft:"8px", 
+                        marginLeft:"8px",
                         marginRight: "8px",
                         fontSize:"16px",
                         display:"block",
                         boxSizing: "inherit",
                         borderTopLeftRadius: "5px",
                         borderTopRightRadius: "5px",
-                        fontSize:"16px", 
                         borderBottomLeftRadius: "5px",
                         borderBottomRightRadius: "5px",
                         width:272,
                         marginBottom:"670px",
                         background: 'transparent',
                         fontWeight:"500"
-                        }}> 
+                        }}>
                         <form action="/api/lists/add-card" method="POST">
                             <div style={{display: openNewList ?  "flex" : "none", padding: "9px",width:272, flexDirection:"column", background:"#ebecf0",borderTopLeftRadius: "5px", borderTopRightRadius: "5px", borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px",}}>
                               <div>
                                 <div style={{...addCardStyle}}>
                                   <InputBase className={classes.input}
-                                    placeholder="Search Google Maps"
                                     inputProps={{ 'aria-label': '' }}style={{outline: "none", textDecoration: "none", width:"100%"}} placeholder="Enter a title for this list..." type="text" value={newListTitle} onChange={handleNewListTitleInput}/>
                                 </div>
                                 <div style={{display:"flex",justifyContent:"space-between",flexDirection:"row",alignItems:"center"}}>
@@ -237,8 +214,8 @@ const Board = ({boardLists}) => {
                             </div>
                             </form>
                             <Button onClick={(e)=>setOpenNewList(true)}
-                            style={{display: openNewList ? "none" : "flex",background:"#ebecf0"}} 
-                            startIcon={<LibraryAddIcon />} 
+                            style={{display: openNewList ? "none" : "flex",background:"#ebecf0"}}
+                            startIcon={<LibraryAddIcon />}
                             fullWidth >add list</Button>
                           </div>
                       </div>

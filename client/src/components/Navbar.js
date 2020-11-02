@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
-import { AppBar, Toolbar, Box, IconButton, Avatar, Typography, Modal, List, ListItem, ListItemText, Menu } from '@material-ui/core';
+import { AppBar, Toolbar, Box, IconButton, Avatar, Typography, List, ListItem, ListItemText, Menu } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AppsIcon from '@material-ui/icons/Apps';
 import HomeIcon from '@material-ui/icons/Home';
