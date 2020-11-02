@@ -1,22 +1,26 @@
 {
   "files": {
     "main.css": "/static/css/main.891196d7.chunk.css",
-    "main.js": "/static/js/main.8e60aeef.chunk.js",
-    "main.js.map": "/static/js/main.8e60aeef.chunk.js.map",
+    "main.js": "/static/js/main.93927d3b.chunk.js",
+    "main.js.map": "/static/js/main.93927d3b.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.09b85ec0.js",
     "runtime-main.js.map": "/static/js/runtime-main.09b85ec0.js.map",
-    "static/js/2.a0299f66.chunk.js": "/static/js/2.a0299f66.chunk.js",
-    "static/js/2.a0299f66.chunk.js.map": "/static/js/2.a0299f66.chunk.js.map",
+    "static/js/2.33c037de.chunk.js": "/static/js/2.33c037de.chunk.js",
+    "static/js/2.33c037de.chunk.js.map": "/static/js/2.33c037de.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.d332a533fedd5299cd0854511ecc17c0.js": "/precache-manifest.d332a533fedd5299cd0854511ecc17c0.js",
+    "precache-manifest.6c86772cb36940d5ca1c1b364ba24afc.js": "/precache-manifest.6c86772cb36940d5ca1c1b364ba24afc.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.891196d7.chunk.css.map": "/static/css/main.891196d7.chunk.css.map",
-    "static/js/2.a0299f66.chunk.js.LICENSE.txt": "/static/js/2.a0299f66.chunk.js.LICENSE.txt"
+    "static/js/2.33c037de.chunk.js.LICENSE.txt": "/static/js/2.33c037de.chunk.js.LICENSE.txt",
+    "static/media/Habits_Book_Trello.png": "/static/media/Habits_Book_Trello.40923478.png",
+    "static/media/hiclipart.png": "/static/media/hiclipart.88a8d0fb.png",
+    "static/media/hiclipart_working.png": "/static/media/hiclipart_working.0073f2ea.png",
+    "static/media/little_people_moving.jpg": "/static/media/little_people_moving.28415c2f.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.09b85ec0.js",
-    "static/js/2.a0299f66.chunk.js",
+    "static/js/2.33c037de.chunk.js",
     "static/css/main.891196d7.chunk.css",
-    "static/js/main.8e60aeef.chunk.js"
+    "static/js/main.93927d3b.chunk.js"
   ]
 }
