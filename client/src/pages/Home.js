@@ -181,7 +181,7 @@ function Home() {
                 </Container>
 
                 <Container className={classes.container2}>
-                    <img src={Habits_Book_Trello} className={classes.media2} />
+                    <img src={'https://raw.githubusercontent.com/woodsywisdom/Jello-app/master/client/src/images/Habits_Book_Trello.png'} className={classes.media2} />
                     <Container className={classes.innerTextContainer2}>
                         <Typography variant='h4' className={classes.textHeader}>
                             Information at a glance
