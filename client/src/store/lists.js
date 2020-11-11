@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie'
-import {updateBoard} from './boards'
 import {updateListOnCard} from './cards'
 
 
@@ -13,21 +12,6 @@ export const setUserLists = (lists) => {
         lists
     }
 }
-
-// export const createNewList = (newList) => async dispatch => {
-//     const jsonList = JSON.stringify(newList)
-//     const csrfToken = Cookies.get("XSRF-TOKEN");
-//     const response = await fetch(`/api/lists/create`, {
-//     method: "post",
-//     headers: {
-//         "Content-Type": "application/json",
-//         "X-CSRF-TOKEN": csrfToken,
-//         },
-//     body: jsonList
-//     })
-//     const list = await response.json();
-//     dispatch(addList(list))
-// }
 
 export const moveCard = (boardId,addToId,cardId,removeFromId) => async dispatch => {
     console.log("removed from",removeFromId)
@@ -49,7 +33,7 @@ export const moveCard = (boardId,addToId,cardId,removeFromId) => async dispatch 
     })
     const data = await response.json();
     console.log("look foo: ",data)
-    dispatch(updateCardsOnList(data["addToListId"],data["addToCardObject"],data["removeFromListId",data["removeFromCardObject"]]))
+    dispatch(updateCardsOnList(data["addToListId"],data["addToCardObject"],data["removeFromListId"],data["removeFromCardObject"]))
     dispatch(updateListOnCard(data["card"]))
 }
 

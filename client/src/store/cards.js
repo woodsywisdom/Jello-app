@@ -1,11 +1,7 @@
-import Cookies from 'js-cookie'
-import { updateBoard } from './boards'
-import { updateCardsOnList} from './lists'
-
 const SET_USER_CARDS = "/entities/cards/SET_USER_CARDS"
 const CREATE_CARD = "/entities/cards/CREATE_CARD"
 const UPDATE_LIST_ON_CARD = "/entities/cards/UPDATE_LIST_ON_CARD"
-const UPDATE_CARD_TITLE = "/entities/cards/UPDATE_CARD_TITLE"
+// const UPDATE_CARD_TITLE = "/entities/cards/UPDATE_CARD_TITLE"
 
 
 export const updateCardTitle = (card,title) => async dispatch => {
@@ -107,7 +103,7 @@ export default function cards(state={},action){
             newState.userCards = userCards;
             newState.userCards[action.card.id] = action.card
             return newState
-        default: 
+        default:
             return state;
     }
 }

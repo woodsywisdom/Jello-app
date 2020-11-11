@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import BoardContext from './BoardContext'
 import Board from './Board'
 import { useParams } from 'react-router-dom';
-// import { updateBoard, updateList } from '../store/boards'
 
 const BoardPage=()=>{
     const dispatch = useDispatch()
@@ -26,7 +25,7 @@ const BoardPage=()=>{
         setLoading(false)
         console.log(boardLists)
       }
-    },[dispatch,userBoard,userLists])
+    },[dispatch,userBoard,userLists, boardId])
 
     if (loading) return "loading"
     return(
@@ -41,7 +40,7 @@ const BoardPage=()=>{
         </BoardContext.Provider>
         </div>
       </div>
-      
+
       </>
     )
 }
