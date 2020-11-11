@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import '../styles/List.css'
+import '../styles/List.css';
 import  { Droppable, Draggable} from 'react-beautiful-dnd';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { IconButton, Button, TextField } from '@material-ui/core';
@@ -7,14 +7,14 @@ import InputBase from '@material-ui/core/InputBase';
 import { useDispatch } from 'react-redux';
 import LibraryAddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-import SubjectIcon from '@material-ui/icons/Subject'
+import SubjectIcon from '@material-ui/icons/Subject';
 import CloseIcon from '@material-ui/icons/Close';
 import { addCard } from '../store/cards';
-import Cookies from 'js-cookie'
-import ListContext from '../pages/ListContext'
-import {updateBoard} from '../store/boards'
-import { updateCardTitle,updateCardDescription} from '../store/cards'
-import { updateCardsOnList } from '../store/lists'
+import Cookies from 'js-cookie';
+import ListContext from '../pages/ListContext';
+import {updateBoard} from '../store/boards';
+import { updateCardTitle,updateCardDescription} from '../store/cards';
+import { updateCardsOnList } from '../store/lists';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
