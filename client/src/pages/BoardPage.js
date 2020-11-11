@@ -30,11 +30,11 @@ const BoardPage=()=>{
     if (loading) return "loading"
     return(
       <>
-      <div style={{display:"flex", marginBottom: 0,flexDirection:"column", height:"100%", background: `${userBoard.color}`}}>
-        <div style={{display:"flex", flexDirection:"row", padding:"12px", fontWeight:"700", fontSize:"24px",color:"white"}}>
+      <div style={{ display:"flex", marginBottom: 0,flexDirection:"column", height:"100%", background: `${userBoard.color}`}}>
+        <div style={{ display:"flex", flexDirection:"row", padding:"12px", fontWeight:"700", fontSize:"24px",color:"white"}}>
           {userBoard.title}
         </div>
-        <div style={{display:"flex", flexDirection:"row", overflow:"scroll"}}>
+        <div style={{ display:"flex", flexDirection:"row", overflow:"scroll"}}>
         <BoardContext.Provider value={{boardId}}>
             <Board boardLists={listsOnBoard}/>
         </BoardContext.Provider>

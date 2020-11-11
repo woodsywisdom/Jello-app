@@ -50,7 +50,7 @@ const Boards = () => {
     blue: {
       height: "15px",
       width: "15px",
-      backgroundColor: "rgb(0, 121, 191)",
+      backgroundColor: "hsl(239, 69%, 50%)",
       marginBottom: "4px",
       '&:hover': {
         cursor: 'pointer',
@@ -70,7 +70,7 @@ const Boards = () => {
     red: {
       height: "15px",
       width: "15px",
-      backgroundColor: "red",
+      backgroundColor: "hsl(0, 71%, 50%)",
       marginBottom: "4px",
       '&:hover': {
         cursor: 'pointer',
@@ -192,7 +192,7 @@ const Boards = () => {
       color: 'white',
       fontWeight: '700',
       '&:hover': {
-        backgroundColor: 'rgb(0, 71, 141)',
+        transform: "scale(1.1)",
         cursor: 'pointer'
       }
     },
@@ -345,13 +345,13 @@ const Boards = () => {
                       </Grid>
                       <Grid container item xs={2} className={classes.templates}>
                         <Grid item xs={4}>
-                          <Card className={classes.blue} onClick={() => setDynamicColor("rgb(0, 121, 191)")} />
+                          <Card className={classes.blue} onClick={() => setDynamicColor("hsl(239, 69%, 50%)")} />
                         </Grid>
                         <Grid item xs={4}>
                           <Card className={classes.green} onClick={() => setDynamicColor("green")} />
                         </Grid>
                         <Grid item xs={4}>
-                          <Card className={classes.red} onClick={() => setDynamicColor("red")} />
+                          <Card className={classes.red} onClick={() => setDynamicColor("hsl(0, 71%, 50%)")} />
                         </Grid>
                         <Grid item xs={4}>
                           <Card className={classes.orange} onClick={() => setDynamicColor("orange")} />
