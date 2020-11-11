@@ -77,11 +77,11 @@ const Navbar = () => {
   }
 
   const homeClick = (e) => {
-    return <Redirect to="/" />
+    window.location.href = "/";
   }
 
   const boardsClick = (e) => {
-    return <Redirect to="/" />
+    window.location.href = "/";
   }
 
   const addClick = (e) => {
