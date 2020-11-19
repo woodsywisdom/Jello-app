@@ -173,11 +173,13 @@ function Home() {
                             Jello’s boards, lists, and cards enable teams to organize and prioritize projects in a fun, flexible, and rewarding way.
                         </p>
                     </div>
-                    <img src={little_people_moving} alt="matt you need an alt" className={classes.media1} />
+
+                    <img src={'https://raw.githubusercontent.com/woodsywisdom/Jello-app/master/client/src/images/little_people_moving.jpg'} alt='example Jello board' className={classes.media1} />
                 </Container>
 
                 <Container className={classes.container2}>
-                    <img src={Habits_Book_Trello} alt="matt you need an alt" className={classes.media2} />
+                    <img src={'https://raw.githubusercontent.com/woodsywisdom/Jello-app/master/client/src/images/Habits_Book_Trello.png'} alt='people pondering ideas' className={classes.media2} />
+
                     <Container className={classes.innerTextContainer2}>
                         <Typography variant='h4' className={classes.textHeader}>
                             Information at a glance
@@ -234,7 +236,7 @@ function Home() {
                     </Container>
 
                     <Container className={classes.container4}>
-                        <img src={hiclipart_working} alt="matt you need an alt" className={classes.media3} />
+                        <img src={'https://raw.githubusercontent.com/woodsywisdom/Jello-app/master/client/src/images/hiclipart_working.png'} alt='people working' className={classes.media3} />
                         <div className={classes.container4Div}>
                             <Typography variant='h4' style={{fontWeight: '600'}}>
                                 Start Planning Today
@@ -243,7 +245,8 @@ function Home() {
                                 Sign up and join over 1,000,000 teams worldwide who are using Jello to get more done.
                             </p>
                         </div>
-                        <img src={hiclipart} alt="matt you need an alt" className={classes.media4} style={{maxHeight: '50vh'}} />
+
+                        <img src={'https://raw.githubusercontent.com/woodsywisdom/Jello-app/master/client/src/images/hiclipart.png'} alt='people celebrate idea' className={classes.media4} style={{maxHeight: '50vh'}} />
                     </Container>
 
                 </Container>
